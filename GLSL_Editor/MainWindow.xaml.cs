@@ -16,9 +16,7 @@ using System.Windows.Shapes;
 
 namespace GLSL_Editor
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         Regex typesRegex = new Regex(@"(vec1|vec2|vec3|vec4|mat2|mat3|mat4|float|int|uint|double|bool|void|sampler1D|sampler2D|sampler3D|struct)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -77,7 +75,7 @@ namespace GLSL_Editor
                         SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(100, 255, 255));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
                     }
-                    else if (match4.Length > 0)
+                    else if (match5.Length > 0)
                     {
                         var textrange = new TextRange(start.GetPositionAtOffset(match5.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match5.Index + match5.Length, LogicalDirection.Backward));
                         SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(100, 255, 255));
