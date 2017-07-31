@@ -34,7 +34,7 @@ namespace GLSL_Editor
             range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.White));
 
             Regex typesRegex = new Regex(@"(vec1|vec2|vec3|vec4|mat2|mat3|mat4|float|int|uint|double|bool|void|sampler1D|sampler2D|sampler3D)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            Regex miscRegex = new Regex(@"(in\s|out\s)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Regex miscRegex = new Regex(@"(in\s|out\s|\sfalse|\strue)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             Regex commentRegex = new Regex(@"(\/\/.*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             var start = glslTextBox.Document.ContentStart;
@@ -56,7 +56,7 @@ namespace GLSL_Editor
                     else if (match2.Length > 0)
                     {
                         var textrange = new TextRange(start.GetPositionAtOffset(match2.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match2.Index + match2.Length, LogicalDirection.Backward));
-                        SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(240, 100, 90));
+                        SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(200, 200, 255));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
                         //start = textrange.End;
                     }
