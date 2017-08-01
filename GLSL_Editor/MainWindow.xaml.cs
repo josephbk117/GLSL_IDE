@@ -30,7 +30,7 @@ namespace GLSL_Editor
 
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
         private void TextBox_keyUp(object sender, KeyEventArgs e)
         {

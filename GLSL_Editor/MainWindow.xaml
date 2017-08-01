@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="348" Width="706">
     <Grid>
-        <RichTextBox Margin="10" Background="#FF83A894" Name="glslTextBox" KeyUp="TextBox_keyUp">
+        <RichTextBox AcceptsTab="True" Margin="0,10" Background="#FF394653" Name="glslTextBox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14">
             <FlowDocument LineHeight="3" PagePadding="0">
-                <Paragraph Background="#FF356E52">
+                <Paragraph Background="#FF3B2147">
                     <Run Text="# Version 140" Foreground="White"/>
                 </Paragraph>
             </FlowDocument>
