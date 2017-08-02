@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,13 +22,11 @@ namespace GLSL_Editor
 
     public partial class MainWindow : Window
     {
+
         Regex typesRegex = new Regex(@"(vec1|vec2|vec3|vec4|mat2|mat3|mat4|float|int|uint|double|bool|void|sampler1D|sampler2D|sampler3D|struct)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         Regex miscRegex = new Regex(@"(in\s|out\s|inout\s|uniform\s|const\s|\sfalse|\strue)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         Regex commentRegex = new Regex(@"(\/\/.*)|(\/\*[\s\S]*\/)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-        //Special Variables Only vertex shader
         Regex vertexShaderSpecial = new Regex(@"gl_Position\s|gl_PointSize\s|gl_VertexID\s|gl_InstanceID\s", RegexOptions.Compiled);
-        //Special Variables Only fragment shader
         Regex fragmentShaderSpecial = new Regex(@"gl_FragCoord\s|gl_FrontFacing\s|gl_FragDepth\s", RegexOptions.Compiled);
 
         public MainWindow()
@@ -82,6 +81,29 @@ namespace GLSL_Editor
                     }
                 }
                 start = start.GetNextContextPosition(LogicalDirection.Forward);
+            }
+        }
+        private void ToolBar_SaveButton_OnLeftMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (tabControl.SelectedIndex == 0)
+                {
+                    using (FileStream fs = File.OpenWrite(sfd.FileName))
+                    {
+                        TextRange text = new TextRange(glslVertexTextbox.Document.ContentStart, glslVertexTextbox.Document.ContentEnd);
+                        text.Save(fs, DataFormats.Text);
+                    }
+                }
+                else
+                {
+                    using (FileStream fs = File.OpenWrite(sfd.FileName))
+                    {
+                        TextRange text = new TextRange(glslFragmentTextbox.Document.ContentStart, glslFragmentTextbox.Document.ContentEnd);
+                        text.Save(fs, DataFormats.Text);
+                    }
+                }
             }
         }
     }

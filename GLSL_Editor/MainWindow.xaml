@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="348" Width="706">
     <Grid>
-        <TabControl Margin="0,35,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+        <TabControl Margin="0,35,0,0" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
             <TabItem Header="Vertex Shader" Background="#FF3B2147" BorderBrush="{x:Null}" Foreground="#FFA57CB8" Margin="1,0,-5,0" HorizontalAlignment="Left" Width="90">
                 <Grid Background="#FFE5E5E5">
                     <RichTextBox AcceptsTab="True" Margin="0,0,0,0" Background="#FF394653" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14">
@@ -32,10 +32,10 @@
             </TabItem>
         </TabControl>
         <Grid VerticalAlignment="Top" Height="35" Background="#FF3B2147">
-            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,0,0"/>
-            <Label Content="SAVE" Width="80" Margin="5,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14"/>
+            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,0,0" MouseLeftButtonDown="ToolBar_SaveButton_OnLeftMouseDown" Fill="#33FFFFFF"/>
+            <Label Content="SAVE" Width="80" Margin="5,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
             <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="97" StrokeThickness="2" Margin="90,5,0,0"/>
-            <Label Content="SAVE AS" Width="97" Margin="90,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14"/>
+            <Label Content="SAVE AS" Width="97" Margin="90,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="#33FFFFFF"/>
 
         </Grid>
 
