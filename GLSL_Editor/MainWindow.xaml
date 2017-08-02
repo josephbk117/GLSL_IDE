@@ -7,13 +7,30 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="348" Width="706">
     <Grid>
-        <RichTextBox AcceptsTab="True" Margin="0,10" Background="#FF394653" Name="glslTextBox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14">
-            <FlowDocument LineHeight="3" PagePadding="0">
-                <Paragraph Background="#FF3B2147">
-                    <Run Text="# Version 140" Foreground="White"/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+        <TabControl Margin="0,35,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <TabItem Header="Vertex Shader">
+                <Grid Background="#FFE5E5E5">
+                    <RichTextBox AcceptsTab="True" Margin="0,0,0,0" Background="#FF394653" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14">
+                        <FlowDocument LineHeight="3" PagePadding="0">
+                            <Paragraph Background="#FF3B2147">
+                                <Run Text="# Version 140" Foreground="White"/>
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Fragment Shader">
+                <Grid Background="#FFE5E5E5">
+                    <RichTextBox AcceptsTab="True" Margin="0,0,0,0" Background="#FF394653" x:Name="glslFragmentTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14">
+                        <FlowDocument LineHeight="3" PagePadding="0">
+                            <Paragraph Background="#FF3B2147">
+                                <Run Text="# Version 140" Foreground="White"/>
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>
