@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="348" Width="706">
     <Grid>
-        <TabControl Margin="0,35,0,0" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+        <TabControl Margin="0,35,0,74" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
             <TabItem Header="Vertex Shader" Background="#FF3B2147" BorderBrush="{x:Null}" Foreground="#FFA57CB8" Margin="1,0,-5,0" HorizontalAlignment="Left" Width="90">
                 <Grid Background="#FFE5E5E5">
                     <RichTextBox AcceptsTab="True" Margin="0,0,0,0" Background="#FF394653" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14">
@@ -37,7 +37,11 @@
             <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="97" StrokeThickness="2" Margin="90,5,0,0"/>
             <Label Content="SAVE AS" Width="97" Margin="90,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="#33FFFFFF"/>
 
+            <Rectangle HorizontalAlignment="Right" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,5,0" Fill="#33FFFFFF" MouseLeftButtonDown="ToolBar_RunButton_OnLeftMouseDown"/>
+            <Label Content="RUN" Width="80" Margin="5,3,5,5" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
+
         </Grid>
+        <TextBox Height="60" Name="debugTextBox" Margin="0,0,0,10" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom" Background="#FF9E9E9E" Foreground="White" BorderBrush="#FF8695BD"/>
 
     </Grid>
 </Window>

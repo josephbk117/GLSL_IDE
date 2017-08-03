@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,13 @@ namespace GLSL_Editor
 {
 
     /* C++ file that takes string parameter for vertex and fragment shader, get console output from that */
+    /*Ammend : Takes location of vertex and fragment shader*/
 
     public partial class MainWindow : Window
     {
+        string vertexShaderSaveLocation, fragmentShaderSaveLocation;
+
+        Process process;
 
         Regex typesRegex = new Regex(@"(vec1|vec2|vec3|vec4|mat2|mat3|mat4|float|int|uint|double|bool|void|sampler1D|sampler2D|sampler3D|struct)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         Regex miscRegex = new Regex(@"(in\s|out\s|inout\s|uniform\s|const\s|\sfalse|\strue)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -90,6 +95,7 @@ namespace GLSL_Editor
             {
                 if (tabControl.SelectedIndex == 0)
                 {
+                    vertexShaderSaveLocation = sfd.FileName;
                     using (FileStream fs = File.OpenWrite(sfd.FileName))
                     {
                         TextRange text = new TextRange(glslVertexTextbox.Document.ContentStart, glslVertexTextbox.Document.ContentEnd);
@@ -98,12 +104,36 @@ namespace GLSL_Editor
                 }
                 else
                 {
+                    fragmentShaderSaveLocation = sfd.FileName;
                     using (FileStream fs = File.OpenWrite(sfd.FileName))
                     {
                         TextRange text = new TextRange(glslFragmentTextbox.Document.ContentStart, glslFragmentTextbox.Document.ContentEnd);
                         text.Save(fs, DataFormats.Text);
                     }
                 }
+            }
+        }
+
+        private void ToolBar_RunButton_OnLeftMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (vertexShaderSaveLocation != string.Empty && fragmentShaderSaveLocation != string.Empty)
+            {
+                process = new Process();
+                process.StartInfo.FileName = @"F:\Visual Studio 2017\Projects\GLSL_Editor\GLSL_Editor\bin\Debug\ShaderTool.exe";
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardInput = true;
+                process.StartInfo.RedirectStandardOutput = true;
+                string vertexLocation = "\"" + vertexShaderSaveLocation + "\"";
+                string fragmentLocation = "\"" + fragmentShaderSaveLocation + "\"";
+                process.StartInfo.Arguments = vertexShaderSaveLocation + " " + fragmentShaderSaveLocation;
+                process.Start();
+                while (!process.StandardOutput.EndOfStream)
+                {
+                    string line = process.StandardOutput.ReadLine();
+                    debugTextBox.Text += line;
+                }
+                process.WaitForExit();
             }
         }
     }
