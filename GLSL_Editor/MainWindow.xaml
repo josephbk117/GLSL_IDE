@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GLSL_Editor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="348" Width="706">
+        Title="MainWindow" Height="496.5" Width="706">
     <Grid>
-        <TabControl Margin="0,35,0,74" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+        <TabControl Margin="0,35,0,135" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
             <TabItem Header="Vertex Shader" Background="#FF3B2147" BorderBrush="{x:Null}" Foreground="#FFA57CB8" Margin="1,0,-5,0" HorizontalAlignment="Left" Width="90">
                 <Grid Background="#FFE5E5E5">
                     <RichTextBox AcceptsTab="True" Margin="0,0,0,0" Background="#FF394653" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14">
                         <FlowDocument LineHeight="3" PagePadding="0">
                             <Paragraph Background="#FF3B2147">
-                                <Run Text="# Version 140" Foreground="White"/>
+                                <Run Text="# version 140" Foreground="White"/>
                             </Paragraph>
                         </FlowDocument>
                     </RichTextBox>
@@ -24,7 +24,7 @@
                     <RichTextBox AcceptsTab="True" Margin="0,0,0,0" Background="#FF394653" x:Name="glslFragmentTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14">
                         <FlowDocument LineHeight="3" PagePadding="0">
                             <Paragraph Background="#FF3B2147">
-                                <Run Text="# Version 140" Foreground="White"/>
+                                <Run Text="# version 140" Foreground="White"/>
                             </Paragraph>
                         </FlowDocument>
                     </RichTextBox>
@@ -41,7 +41,9 @@
             <Label Content="RUN" Width="80" Margin="5,3,5,5" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
 
         </Grid>
-        <TextBox Height="60" Name="debugTextBox" Margin="0,0,0,10" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom" Background="#FF9E9E9E" Foreground="White" BorderBrush="#FF8695BD"/>
+        <Grid Margin="0,0,0,-1" Background="#FF3B2147" Height="136" VerticalAlignment="Bottom">
+            <TextBox x:Name="debugTextBox" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Text="..." Background="#FF394653" Foreground="White" BorderBrush="#FF8695BD" Margin="0,31,0,0"/>
+        </Grid>
 
     </Grid>
 </Window>

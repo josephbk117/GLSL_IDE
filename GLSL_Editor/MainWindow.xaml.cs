@@ -133,7 +133,7 @@ namespace GLSL_Editor
                     string line = process.StandardOutput.ReadLine();
                     debugTextBox.Text += line;
                 }
-                process.WaitForExit();
+                //process.WaitForExit();
             }
         }
     }
