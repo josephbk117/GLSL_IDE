@@ -114,6 +114,11 @@ namespace GLSL_Editor
             }
         }
 
+        private void DebugWindow_ClearButtonOnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            debugTextBox.Clear();
+        }
+
         private void ToolBar_RunButton_OnLeftMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (vertexShaderSaveLocation != string.Empty && fragmentShaderSaveLocation != string.Empty)
@@ -131,9 +136,8 @@ namespace GLSL_Editor
                 while (!process.StandardOutput.EndOfStream)
                 {
                     string line = process.StandardOutput.ReadLine();
-                    debugTextBox.Text += line;
+                    debugTextBox.Text += line + Environment.NewLine;
                 }
-                //process.WaitForExit();
             }
         }
     }
