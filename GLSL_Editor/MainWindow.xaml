@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="496.5" Width="706">
     <Grid>
-        <TabControl Margin="0,35,0,135" BorderThickness="0" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+        <TabControl Margin="35,35,0,135" BorderThickness="0" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
             <TabItem Header="Vertex Shader" Background="#FF3B2147" BorderBrush="{x:Null}" Foreground="#FFA57CB8" Margin="1,0,-5,0" HorizontalAlignment="Left" Width="90">
                 <Grid Background="#FFE5E5E5">
                     <RichTextBox AcceptsTab="True" Margin="0,0,0,0" Background="#FF394653" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14">
@@ -32,20 +32,20 @@
             </TabItem>
         </TabControl>
         <Grid VerticalAlignment="Top" Height="35" Background="#FF3B2147">
-            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,0,0" MouseLeftButtonDown="ToolBar_SaveButton_OnLeftMouseDown" Fill="#33FFFFFF"/>
+            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,0,0" Fill="#33FFFFFF" MouseLeftButtonUp="ToolBar_SaveButton_OnLeftMouseUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
             <Label Content="SAVE" Width="80" Margin="5,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
-            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="97" StrokeThickness="2" Margin="90,5,0,0"/>
+            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="97" StrokeThickness="2" Margin="90,5,0,0" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
             <Label Content="SAVE AS" Width="97" Margin="90,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="#33FFFFFF"/>
 
-            <Rectangle HorizontalAlignment="Right" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,5,0" Fill="#33FFFFFF" MouseLeftButtonDown="ToolBar_RunButton_OnLeftMouseDown"/>
+            <Rectangle HorizontalAlignment="Right" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,5,0" Fill="#33FFFFFF" MouseLeftButtonUp="ToolBar_RunButton_OnLeftMouseUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
             <Label Content="RUN" Width="80" Margin="5,3,5,5" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
 
         </Grid>
         <Grid Margin="0,0,0,0" Background="#FF3B2147" Height="136" VerticalAlignment="Bottom">
-            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="0,5,0,0" Fill="#33FFFFFF" MouseLeftButtonUp="DebugWindow_ClearButtonOnLeftMouseButtonUp"/>
+            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="0,5,0,0" Fill="#33FFFFFF" MouseLeftButtonUp="DebugWindow_ClearButtonOnLeftMouseButtonUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
             <Label Content="CLEAR" Width="80" Margin="0,3,0,106" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
             <TextBox x:Name="debugTextBox" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Background="#FF394653" Foreground="White" BorderBrush="#FF8695BD" Margin="0,35,0,0"/>
         </Grid>
-
+        
     </Grid>
 </Window>

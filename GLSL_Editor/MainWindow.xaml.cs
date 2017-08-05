@@ -21,11 +21,11 @@ namespace GLSL_Editor
 
     /* C++ file that takes string parameter for vertex and fragment shader, get console output from that */
     /*Ammend : Takes location of vertex and fragment shader*/
+    //Issue with saving by overwriting, create new file remove previous one
 
     public partial class MainWindow : Window
     {
         string vertexShaderSaveLocation, fragmentShaderSaveLocation;
-
         Process process;
 
         Regex typesRegex = new Regex(@"(vec1|vec2|vec3|vec4|mat2|mat3|mat4|float|int|uint|double|bool|void|sampler1D|sampler2D|sampler3D|struct)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -88,8 +88,16 @@ namespace GLSL_Editor
                 start = start.GetNextContextPosition(LogicalDirection.Forward);
             }
         }
-        private void ToolBar_SaveButton_OnLeftMouseDown(object sender, MouseButtonEventArgs e)
+
+        private void DebugWindow_ClearButtonOnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
         {
+            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
+            debugTextBox.Clear();
+        }
+
+        private void ToolBar_SaveButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
             System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -114,13 +122,14 @@ namespace GLSL_Editor
             }
         }
 
-        private void DebugWindow_ClearButtonOnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
+        private void GenericButton_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            debugTextBox.Clear();
+            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb(100, 255, 255, 255));
         }
 
-        private void ToolBar_RunButton_OnLeftMouseDown(object sender, MouseButtonEventArgs e)
+        private void ToolBar_RunButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
         {
+            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
             if (vertexShaderSaveLocation != string.Empty && fragmentShaderSaveLocation != string.Empty)
             {
                 process = new Process();
