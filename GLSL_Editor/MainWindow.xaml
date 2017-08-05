@@ -46,6 +46,47 @@
             <Label Content="CLEAR" Width="80" Margin="0,3,0,106" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
             <TextBox x:Name="debugTextBox" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Background="#FF394653" Foreground="White" BorderBrush="#FF8695BD" Margin="0,35,0,0"/>
         </Grid>
-        
+        <RichTextBox HorizontalAlignment="Left" Margin="0,59,0,137" Width="35">
+            <FlowDocument LineHeight="3">
+                <Paragraph>
+                    <Run Text="  1"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="  2"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="  3"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="  4"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="  5"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="  6"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="  7"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="  8"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="  9"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text=" 10"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text=" 11"/>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text=" 12"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+
+
     </Grid>
 </Window>
