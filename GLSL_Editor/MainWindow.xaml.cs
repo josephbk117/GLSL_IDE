@@ -43,17 +43,29 @@ namespace GLSL_Editor
         {
 
             RichTextBox currentTextBox = (RichTextBox)sender;
+            RichTextBox lineNumberTextBox;
+            FlowDocument flowDoc;
+            if (currentTextBox == glslVertexTextbox)
+            {
+                lineNumberTextBox = lineNumberVertex_TextBox;
+                flowDoc = lineNumberVertex_FlowDoc;
+            }
+            else
+            {
+                lineNumberTextBox = lineNumberFragment_TextBox;
+                flowDoc = lineNumberFrag_FlowDoc;
+            }
             int someBigNumber = int.MaxValue;
-            int lineMoved, currentLineNumber;
-            currentTextBox.CaretPosition.GetLineStartPosition(-someBigNumber, out lineMoved);
+            int currentLineNumber;
+            currentTextBox.CaretPosition.GetLineStartPosition(-someBigNumber, out int lineMoved);
             currentLineNumber = -lineMoved + 1;
 
-            lineNumberVertex_TextBox.Document.Blocks.Clear();
+            lineNumberTextBox.Document.Blocks.Clear();
             for (int i = 1; i <= currentLineNumber; i++)
             {
                 var paragraph = new Paragraph();
                 paragraph.Inlines.Add(new Run(i.ToString()));
-                lineNumber_FlowDoc.Blocks.Add(paragraph);
+                flowDoc.Blocks.Add(paragraph);
             }
 
             Regex shaderSpecificRegex;

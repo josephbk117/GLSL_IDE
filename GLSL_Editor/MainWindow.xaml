@@ -11,7 +11,7 @@
             <TabItem Header="Vertex Shader" Background="#FF3B2147" BorderBrush="{x:Null}" Foreground="#FFA57CB8" Margin="1,0,-5,0" HorizontalAlignment="Left" Width="90">
                 <Grid Background="#FFE5E5E5">
                     <RichTextBox Name="lineNumberVertex_TextBox" HorizontalAlignment="Left" IsReadOnly="True" Width="37" FontFamily="consolas" FontSize="14" Background="#FF3B2147" Foreground="#FFA57CB8" BorderBrush="White">
-                        <FlowDocument Name="lineNumber_FlowDoc" LineHeight="3" PagePadding="0">
+                        <FlowDocument Name="lineNumberVertex_FlowDoc" LineHeight="3" PagePadding="0">
                             <Paragraph>
                                 <Run Text="1"/>
                             </Paragraph>
