@@ -17,6 +17,7 @@
                             </Paragraph>
                         </FlowDocument>
                     </RichTextBox>
+                    <ScrollViewer Name="vertexScrollBar" ScrollChanged="ScrollViewer_ScrollChanged">
                     <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="#FF624D6C" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White">
                         <FlowDocument LineHeight="3" PagePadding="0">
                             <Paragraph Background="#FF3B2147">
@@ -24,6 +25,7 @@
                             </Paragraph>
                         </FlowDocument>
                     </RichTextBox>
+                    </ScrollViewer>
                 </Grid>
             </TabItem>
             <TabItem Header="Fragment Shader" BorderBrush="{x:Null}" Background="#FF3B2147" Foreground="#FFA57CB8" Margin="10,0,-10,0" HorizontalAlignment="Left" Width="103">
@@ -35,13 +37,15 @@
                             </Paragraph>
                         </FlowDocument>
                     </RichTextBox>
-                    <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="#FF624D6C" x:Name="glslFragmentTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White">
-                        <FlowDocument LineHeight="3" PagePadding="0">
-                            <Paragraph Background="#FF3B2147">
-                                <Run Text="# version 140" Foreground="White"/>
-                            </Paragraph>
-                        </FlowDocument>
-                    </RichTextBox>
+                    <ScrollViewer Name="fragmentScrollBar" ScrollChanged="ScrollViewer_ScrollChanged">
+                        <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="#FF624D6C" x:Name="glslFragmentTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White">
+                            <FlowDocument LineHeight="3" PagePadding="0">
+                                <Paragraph Background="#FF3B2147">
+                                    <Run Text="# version 140" Foreground="White"/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </ScrollViewer>
                 </Grid>
             </TabItem>
         </TabControl>

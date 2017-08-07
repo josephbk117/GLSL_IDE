@@ -26,6 +26,7 @@ namespace GLSL_Editor
 
     public partial class MainWindow : Window
     {
+        double scrollOffset = 0;
         string vertexShaderSaveLocation, fragmentShaderSaveLocation;
         Process process;
 
@@ -154,6 +155,14 @@ namespace GLSL_Editor
         private void GenericButton_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb(100, 255, 255, 255));
+        }
+
+        private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (sender == vertexScrollBar)
+                lineNumberVertex_TextBox.ScrollToVerticalOffset(e.VerticalOffset);
+            else
+                lineNumberFragment_TextBox.ScrollToVerticalOffset(e.VerticalOffset);
         }
 
         private void ToolBar_RunButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
