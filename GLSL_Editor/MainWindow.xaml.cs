@@ -40,7 +40,21 @@ namespace GLSL_Editor
         }
         private void TextBox_keyUp(object sender, KeyEventArgs e)
         {
+
             RichTextBox currentTextBox = (RichTextBox)sender;
+            int someBigNumber = int.MaxValue;
+            int lineMoved, currentLineNumber;
+            currentTextBox.CaretPosition.GetLineStartPosition(-someBigNumber, out lineMoved);
+            currentLineNumber = -lineMoved + 1;
+
+            lineNumber_TextBox.Document.Blocks.Clear();
+            for (int i = 1; i <= currentLineNumber; i++)
+            {
+                var paragraph = new Paragraph();
+                paragraph.Inlines.Add(new Run(i.ToString()));
+                lineNumber_FlowDoc.Blocks.Add(paragraph);
+            }
+
             Regex shaderSpecificRegex;
             if (sender == glslVertexTextbox)
                 shaderSpecificRegex = vertexShaderSpecial;
@@ -49,7 +63,6 @@ namespace GLSL_Editor
 
             TextRange range = new TextRange(currentTextBox.Document.ContentStart, currentTextBox.Document.ContentEnd);
             range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.White));
-
             var start = currentTextBox.Document.ContentStart;
             while (start != null && start.CompareTo(currentTextBox.Document.ContentEnd) < 0)
             {

@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GLSL_Editor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="496.5" Width="706">
+        Title="GLSL Editor" Height="496.5" Width="706">
     <Grid>
         <TabControl Margin="35,35,0,135" BorderThickness="0" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
             <TabItem Header="Vertex Shader" Background="#FF3B2147" BorderBrush="{x:Null}" Foreground="#FFA57CB8" Margin="1,0,-5,0" HorizontalAlignment="Left" Width="90">
                 <Grid Background="#FFE5E5E5">
-                    <RichTextBox AcceptsTab="True" Margin="0,0,0,0" Background="#FF394653" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14">
+                    <RichTextBox AcceptsTab="True" Margin="0,0,0,0" Background="#FF624D6C" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White">
                         <FlowDocument LineHeight="3" PagePadding="0">
                             <Paragraph Background="#FF3B2147">
                                 <Run Text="# version 140" Foreground="White"/>
@@ -44,46 +44,13 @@
         <Grid Margin="0,0,0,0" Background="#FF3B2147" Height="136" VerticalAlignment="Bottom">
             <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="0,5,0,0" Fill="#33FFFFFF" MouseLeftButtonUp="DebugWindow_ClearButtonOnLeftMouseButtonUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
             <Label Content="CLEAR" Width="80" Margin="0,3,0,106" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
-            <TextBox x:Name="debugTextBox" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Background="#FF394653" Foreground="White" BorderBrush="#FF8695BD" Margin="0,35,0,0"/>
+            <TextBox x:Name="debugTextBox" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Background="#FF624D6C" Foreground="White" BorderBrush="#FF8695BD" Margin="0,35,0,0"/>
         </Grid>
-        <RichTextBox HorizontalAlignment="Left" Margin="0,59,0,137" Width="35">
-            <FlowDocument LineHeight="3">
+        <RichTextBox Name="lineNumber_TextBox" HorizontalAlignment="Left" IsReadOnly="True" Margin="0,59,0,137" Width="37" FontFamily="consolas" FontSize="14" Background="#FF3B2147" Foreground="#FFA57CB8" BorderBrush="White">
+            <FlowDocument Name="lineNumber_FlowDoc" LineHeight="3" PagePadding="0">
                 <Paragraph>
-                    <Run Text="  1"/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="  2"/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="  3"/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="  4"/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="  5"/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="  6"/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="  7"/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="  8"/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="  9"/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text=" 10"/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text=" 11"/>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text=" 12"/>
-                </Paragraph>
+                    <Run Text="1"/>
+                </Paragraph>                
             </FlowDocument>
         </RichTextBox>
 
