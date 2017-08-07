@@ -22,6 +22,7 @@ namespace GLSL_Editor
     /* C++ file that takes string parameter for vertex and fragment shader, get console output from that */
     /*Ammend : Takes location of vertex and fragment shader*/
     //Issue with saving by overwriting, create new file remove previous one
+    //if one rich text is scrolled with line on isde then both are scrolled
 
     public partial class MainWindow : Window
     {
@@ -47,7 +48,7 @@ namespace GLSL_Editor
             currentTextBox.CaretPosition.GetLineStartPosition(-someBigNumber, out lineMoved);
             currentLineNumber = -lineMoved + 1;
 
-            lineNumber_TextBox.Document.Blocks.Clear();
+            lineNumberVertex_TextBox.Document.Blocks.Clear();
             for (int i = 1; i <= currentLineNumber; i++)
             {
                 var paragraph = new Paragraph();
