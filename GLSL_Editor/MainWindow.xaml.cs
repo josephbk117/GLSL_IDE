@@ -57,7 +57,10 @@ namespace GLSL_Editor
             }
             int someBigNumber = int.MaxValue;
             int currentLineNumber;
+            TextPointer tp = currentTextBox.CaretPosition;
+            currentTextBox.CaretPosition = currentTextBox.Document.ContentEnd;
             currentTextBox.CaretPosition.GetLineStartPosition(-someBigNumber, out int lineMoved);
+            currentTextBox.CaretPosition = tp;
             currentLineNumber = -lineMoved + 1;
 
             lineNumberTextBox.Document.Blocks.Clear();

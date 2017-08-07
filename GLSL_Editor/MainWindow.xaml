@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="GLSL Editor" Height="496" Width="706">
     <Grid>
-        <TabControl Margin="0,35,0,135" BorderThickness="0" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+        <TabControl Margin="0,35,0,135" BorderThickness="0" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
             <TabItem Header="Vertex Shader" Background="#FF3B2147" BorderBrush="{x:Null}" Foreground="#FFA57CB8" Margin="1,0,-5,0" HorizontalAlignment="Left" Width="90">
                 <Grid Background="#FFE5E5E5">
                     <RichTextBox Name="lineNumberVertex_TextBox" HorizontalAlignment="Left" IsReadOnly="True" Width="37" FontFamily="consolas" FontSize="14" Background="#FF3B2147" Foreground="#FFA57CB8" BorderBrush="White">
@@ -35,7 +35,7 @@
                             </Paragraph>
                         </FlowDocument>
                     </RichTextBox>
-                    <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="#FF624D6C" x:Name="glslFragmentTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14">
+                    <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="#FF624D6C" x:Name="glslFragmentTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White">
                         <FlowDocument LineHeight="3" PagePadding="0">
                             <Paragraph Background="#FF3B2147">
                                 <Run Text="# version 140" Foreground="White"/>
