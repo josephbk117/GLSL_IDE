@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GLSL_Editor"
         mc:Ignorable="d"
-        Title="GLSL Editor" Height="496" Width="706">
+        Title="GLSL Editor" Height="496" Width="706" MinWidth="700" MinHeight="490">
     <Grid>
         <TabControl Margin="0,35,0,135" BorderThickness="0" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
             <TabItem Header="Vertex Shader" Background="#FF3B2147" BorderBrush="{x:Null}" Foreground="#FFA57CB8" Margin="1,0,-5,0" HorizontalAlignment="Left" Width="90">
@@ -81,6 +81,14 @@
             <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="0,5,0,0" Fill="#33FFFFFF" MouseLeftButtonUp="DebugWindow_ClearButtonOnLeftMouseButtonUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
             <Label Content="CLEAR" Width="80" Margin="0,3,0,106" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
             <TextBox x:Name="debugTextBox" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Background="#FF624D6C" Foreground="White" BorderBrush="#FF8695BD" Margin="0,35,0,0"/>
+        </Grid>
+        <Grid Margin="0" Background="#66000000" Name="coverGrid" Visibility="Hidden">
+            <Grid Width="350" Height="150" Background="#7FFFFFFF" Name="saveAndIdeErrorGrid">
+                <Label Name="saveAndIdeErrorGrid_Toplabel" Content="Vertex/Fragment shader saved" Margin="0,0,0,115" HorizontalContentAlignment="Center" FontSize="13" Foreground="White"/>
+                <Label Name="saveAndIdeErrorGrid_SubLabel" Content="safe file name" Margin="0,30,0,90" HorizontalContentAlignment="Center" FontSize="12" Foreground="White"/>
+                <Rectangle Margin="90,100,90,10" Fill="#66000000"/>
+                <Label Name ="saveAndIdeErrorGrid_Buttonlabel" Content="Text" Margin="90,100,90,10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" MouseLeftButtonUp="ModalWindowButton_OnMouseUp"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

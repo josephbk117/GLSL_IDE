@@ -161,6 +161,7 @@ namespace GLSL_Editor
                         text.Save(fs, DataFormats.Text);
                     }
                 }
+                SavedFileModalWindow("Vertex Shader Saved", vertexShaderSaveLocation, "OK");
             }
             else
             {
@@ -187,6 +188,7 @@ namespace GLSL_Editor
                         text.Save(fs, DataFormats.Text);
                     }
                 }
+                SavedFileModalWindow("Fragment Shader Saved", fragmentShaderSaveLocation, "OK");
             }
         }
 
@@ -206,6 +208,18 @@ namespace GLSL_Editor
         private void RichTextbox_OnLoaded(object sender, RoutedEventArgs e)
         {
             SetUpLineAndFormat((RichTextBox)sender);            
+        }
+
+        private void ModalWindowButton_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            coverGrid.Visibility = Visibility.Hidden;
+        }
+        private void SavedFileModalWindow(string topLabelText,string subLabelText, string buttonText)
+        {
+            coverGrid.Visibility = Visibility.Visible;
+            saveAndIdeErrorGrid_Toplabel.Content = topLabelText;
+            saveAndIdeErrorGrid_SubLabel.Content = subLabelText;
+            saveAndIdeErrorGrid_Buttonlabel.Content = buttonText;
         }
 
         private void ToolBar_RunButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
@@ -229,6 +243,8 @@ namespace GLSL_Editor
                     debugTextBox.Text += line + Environment.NewLine;
                 }
             }
+            else
+                SavedFileModalWindow("Cannot Run Shaders", "No Shader has been saved yet, Save both shaders to file", "OK");
         }
     }
 }
