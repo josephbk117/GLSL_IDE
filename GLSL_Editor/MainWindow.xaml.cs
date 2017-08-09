@@ -23,6 +23,7 @@ namespace GLSL_Editor
     /*Ammend : Takes location of vertex and fragment shader*/
     //Issue with saving by overwriting, create new file remove previous one
     //if one rich text is scrolled with line on isde then both are scrolled
+    //Make tab controls of tab controls, each tone tab contains a vertex an frag tab control, this tab control placed vertically
 
     public partial class MainWindow : Window
     {
@@ -39,11 +40,17 @@ namespace GLSL_Editor
         public MainWindow()
         {
             InitializeComponent();
+            vertexShaderSaveLocation = string.Empty;
+            fragmentShaderSaveLocation = string.Empty;           
         }
         private void TextBox_keyUp(object sender, KeyEventArgs e)
         {
-
             RichTextBox currentTextBox = (RichTextBox)sender;
+            SetUpLineAndFormat(currentTextBox);
+        }
+
+        private void SetUpLineAndFormat( RichTextBox currentTextBox)
+        {
             RichTextBox lineNumberTextBox;
             FlowDocument flowDoc;
             if (currentTextBox == glslVertexTextbox)
@@ -73,7 +80,7 @@ namespace GLSL_Editor
             }
 
             Regex shaderSpecificRegex;
-            if (sender == glslVertexTextbox)
+            if (currentTextBox == glslVertexTextbox)
                 shaderSpecificRegex = vertexShaderSpecial;
             else
                 shaderSpecificRegex = fragmentShaderSpecial;
@@ -128,22 +135,53 @@ namespace GLSL_Editor
         private void ToolBar_SaveButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
         {
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
-            System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
-            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            
+            if (tabControl.SelectedIndex == 0)
             {
-                if (tabControl.SelectedIndex == 0)
+                if (vertexShaderSaveLocation == string.Empty)
                 {
-                    vertexShaderSaveLocation = sfd.FileName;
-                    using (FileStream fs = File.OpenWrite(sfd.FileName))
+                    System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
+                    if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        vertexShaderSaveLocation = sfd.FileName;
+                        using (FileStream fs = File.OpenWrite(sfd.FileName))
+                        {
+                            TextRange text = new TextRange(glslVertexTextbox.Document.ContentStart, glslVertexTextbox.Document.ContentEnd);
+                            text.Save(fs, DataFormats.Text);
+                        }
+                    }
+                }
+                else
+                {
+                    if (File.Exists(vertexShaderSaveLocation))
+                        File.Delete(vertexShaderSaveLocation);
+                    using (FileStream fs = File.OpenWrite(vertexShaderSaveLocation))
                     {
                         TextRange text = new TextRange(glslVertexTextbox.Document.ContentStart, glslVertexTextbox.Document.ContentEnd);
                         text.Save(fs, DataFormats.Text);
                     }
                 }
+            }
+            else
+            {
+                if (fragmentShaderSaveLocation == string.Empty)
+                {
+                    System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
+                    if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        fragmentShaderSaveLocation = sfd.FileName;
+                        using (FileStream fs = File.OpenWrite(sfd.FileName))
+                        {
+                            TextRange text = new TextRange(glslFragmentTextbox.Document.ContentStart, glslFragmentTextbox.Document.ContentEnd);
+                            text.Save(fs, DataFormats.Text);
+                        }
+                    }
+                }
                 else
                 {
-                    fragmentShaderSaveLocation = sfd.FileName;
-                    using (FileStream fs = File.OpenWrite(sfd.FileName))
+                    if (File.Exists(fragmentShaderSaveLocation))
+                        File.Delete(fragmentShaderSaveLocation);
+                    using (FileStream fs = File.OpenWrite(fragmentShaderSaveLocation))
                     {
                         TextRange text = new TextRange(glslFragmentTextbox.Document.ContentStart, glslFragmentTextbox.Document.ContentEnd);
                         text.Save(fs, DataFormats.Text);
@@ -163,6 +201,11 @@ namespace GLSL_Editor
                 lineNumberVertex_TextBox.ScrollToVerticalOffset(e.VerticalOffset);
             else
                 lineNumberFragment_TextBox.ScrollToVerticalOffset(e.VerticalOffset);
+        }
+
+        private void RichTextbox_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            SetUpLineAndFormat((RichTextBox)sender);            
         }
 
         private void ToolBar_RunButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
