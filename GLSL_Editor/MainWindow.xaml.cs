@@ -12,28 +12,21 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace GLSL_Editor
 {
 
-    /* C++ file that takes string parameter for vertex and fragment shader, get console output from that */
-    /*Ammend : Takes location of vertex and fragment shader*/
-    //Issue with saving by overwriting, create new file remove previous one
-    //if one rich text is scrolled with line on isde then both are scrolled
     //Make tab controls of tab controls, each tone tab contains a vertex an frag tab control, this tab control placed vertically
 
     public partial class MainWindow : Window
     {
-        double scrollOffset = 0;
         string vertexShaderSaveLocation, fragmentShaderSaveLocation;
         Process process;
 
         Regex typesRegex = new Regex(@"(vec1|vec2|vec3|vec4|mat2|mat3|mat4|float|int|uint|double|bool|void|sampler1D|sampler2D|sampler3D|struct)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         Regex miscRegex = new Regex(@"(in\s|out\s|inout\s|uniform\s|const\s|\sfalse|\strue)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        Regex commentRegex = new Regex(@"(\/\/.*)|(\/\*[\s\S]*\/)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        Regex commentRegex = new Regex(@"(\/\/.*)|(\/\*[\s\S]*\/)|(\/\/.*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         Regex vertexShaderSpecial = new Regex(@"gl_Position\s|gl_PointSize\s|gl_VertexID\s|gl_InstanceID\s", RegexOptions.Compiled);
         Regex fragmentShaderSpecial = new Regex(@"gl_FragCoord\s|gl_FrontFacing\s|gl_FragDepth\s", RegexOptions.Compiled);
 
@@ -41,15 +34,20 @@ namespace GLSL_Editor
         {
             InitializeComponent();
             vertexShaderSaveLocation = string.Empty;
-            fragmentShaderSaveLocation = string.Empty;           
+            fragmentShaderSaveLocation = string.Empty;
         }
         private void TextBox_keyUp(object sender, KeyEventArgs e)
         {
+            string sval = ((TabItem)tabControl.SelectedItem).Header.ToString();
+            if (!sval.EndsWith("*"))
+            {
+                ((TabItem)tabControl.SelectedItem).Header = ((TabItem)tabControl.SelectedItem).Header + "*";
+            }
             RichTextBox currentTextBox = (RichTextBox)sender;
             SetUpLineAndFormat(currentTextBox);
         }
 
-        private void SetUpLineAndFormat( RichTextBox currentTextBox)
+        private void SetUpLineAndFormat(RichTextBox currentTextBox)
         {
             RichTextBox lineNumberTextBox;
             FlowDocument flowDoc;
@@ -135,7 +133,7 @@ namespace GLSL_Editor
         private void ToolBar_SaveButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
         {
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
-            
+
             if (tabControl.SelectedIndex == 0)
             {
                 if (vertexShaderSaveLocation == string.Empty)
@@ -161,6 +159,8 @@ namespace GLSL_Editor
                         text.Save(fs, DataFormats.Text);
                     }
                 }
+                int len = vertexShaderSaveLocation.Split('\\').Length;
+                ((TabItem)tabControl.SelectedItem).Header = vertexShaderSaveLocation.Split('\\')[len - 1];
                 SavedFileModalWindow("Vertex Shader Saved", vertexShaderSaveLocation, "OK");
             }
             else
@@ -188,6 +188,8 @@ namespace GLSL_Editor
                         text.Save(fs, DataFormats.Text);
                     }
                 }
+                int len = fragmentShaderSaveLocation.Split('\\').Length;
+                ((TabItem)tabControl.SelectedItem).Header = fragmentShaderSaveLocation.Split('\\')[len - 1];
                 SavedFileModalWindow("Fragment Shader Saved", fragmentShaderSaveLocation, "OK");
             }
         }
@@ -207,20 +209,35 @@ namespace GLSL_Editor
 
         private void RichTextbox_OnLoaded(object sender, RoutedEventArgs e)
         {
-            SetUpLineAndFormat((RichTextBox)sender);            
+            SetUpLineAndFormat((RichTextBox)sender);
         }
 
         private void ModalWindowButton_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             coverGrid.Visibility = Visibility.Hidden;
         }
-        private void SavedFileModalWindow(string topLabelText,string subLabelText, string buttonText)
+        private void SavedFileModalWindow(string topLabelText, string subLabelText, string buttonText)
         {
             coverGrid.Visibility = Visibility.Visible;
             saveAndIdeErrorGrid_Toplabel.Content = topLabelText;
             saveAndIdeErrorGrid_SubLabel.Content = subLabelText;
             saveAndIdeErrorGrid_Buttonlabel.Content = buttonText;
         }
+
+
+        /*private void RichTextBox_OnTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextPointer tp = glslVertexTextbox.CaretPosition;
+            int offset = 0;
+
+            offset = tp.GetOffsetToPosition(glslVertexTextbox.Document.ContentStart);
+            Console.WriteLine("Offest = " + offset + ": " + previousPosition);
+            if (Math.Abs(offset - previousPosition) > 2)
+            {
+                SetUpLineAndFormat(glslVertexTextbox);
+            }
+            previousPosition = offset;
+        }*/
 
         private void ToolBar_RunButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
         {
