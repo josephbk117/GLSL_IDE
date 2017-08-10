@@ -223,22 +223,6 @@ namespace GLSL_Editor
             saveAndIdeErrorGrid_SubLabel.Content = subLabelText;
             saveAndIdeErrorGrid_Buttonlabel.Content = buttonText;
         }
-
-
-        /*private void RichTextBox_OnTextInput(object sender, TextCompositionEventArgs e)
-        {
-            TextPointer tp = glslVertexTextbox.CaretPosition;
-            int offset = 0;
-
-            offset = tp.GetOffsetToPosition(glslVertexTextbox.Document.ContentStart);
-            Console.WriteLine("Offest = " + offset + ": " + previousPosition);
-            if (Math.Abs(offset - previousPosition) > 2)
-            {
-                SetUpLineAndFormat(glslVertexTextbox);
-            }
-            previousPosition = offset;
-        }*/
-
         private void ToolBar_RunButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
         {
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
