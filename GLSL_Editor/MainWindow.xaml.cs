@@ -229,7 +229,7 @@ namespace GLSL_Editor
             if (vertexShaderSaveLocation != string.Empty && fragmentShaderSaveLocation != string.Empty)
             {
                 process = new Process();
-                process.StartInfo.FileName = @"F:\Visual Studio 2017\Projects\GLSL_Editor\GLSL_Editor\bin\Debug\ShaderTool.exe";
+                process.StartInfo.FileName = @"ShaderTool.exe";
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardInput = true;
