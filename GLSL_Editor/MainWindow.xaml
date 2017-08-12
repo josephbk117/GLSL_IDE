@@ -37,7 +37,7 @@
                     </ScrollViewer>
                 </Grid>
             </TabItem>
-            <TabItem Header="Fragment Shader" BorderBrush="{x:Null}" Background="#FF3B2147" Foreground="#FFA57CB8" Margin="0,0,-44,0" HorizontalAlignment="Right" Width="103">
+            <TabItem Header="Fragment Shader" BorderBrush="{x:Null}" Background="#FF3B2147" Foreground="#FFA57CB8" Margin="44,0,-44,0">
                 <Grid Background="#FFE5E5E5">
                     <RichTextBox Name="lineNumberFragment_TextBox" HorizontalAlignment="Left" IsReadOnly="True" Width="37" FontFamily="consolas" FontSize="14" Background="#FF3B2147" Foreground="#FFA57CB8" BorderBrush="White">
                         <FlowDocument Name="lineNumberFrag_FlowDoc" LineHeight="3" PagePadding="0">

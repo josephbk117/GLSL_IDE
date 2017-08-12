@@ -90,27 +90,30 @@ namespace GLSL_Editor
             {
                 if (start.GetPointerContext(LogicalDirection.Forward) == TextPointerContext.Text)
                 {
-                    var match = typesRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
-                    var match2 = miscRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
-                    var match3 = commentRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
+                    var match = commentRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
+                    var match2 = typesRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
+                    var match3 = miscRegex.Match(start.GetTextInRun(LogicalDirection.Forward));                    
                     var match4 = shaderSpecificRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
 
+                    //Comments
                     if (match.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Backward));
+                        var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Backward));                        
+                        SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(100, 255, 100));
+                        textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
+                    }
+                    //types
+                    else if (match2.Length > 0)
+                    {
+                        var textrange = new TextRange(start.GetPositionAtOffset(match2.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match2.Index + match2.Length, LogicalDirection.Backward));                        
                         SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(50, 180, 250));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
                     }
-                    else if (match2.Length > 0)
-                    {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match2.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match2.Index + match2.Length, LogicalDirection.Backward));
-                        SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(200, 200, 255));
-                        textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
-                    }
+                    //misc
                     else if (match3.Length > 0)
                     {
                         var textrange = new TextRange(start.GetPositionAtOffset(match3.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match3.Index + match3.Length, LogicalDirection.Backward));
-                        SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(100, 255, 100));
+                        SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(200, 200, 255));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
                     }
                     else if (match4.Length > 0)
