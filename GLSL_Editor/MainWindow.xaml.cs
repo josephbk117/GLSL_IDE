@@ -5,10 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -18,6 +16,7 @@ namespace GLSL_Editor
 {
 
     //Make tab controls of tab controls, each tone tab contains a vertex an frag tab control, this tab control placed vertically
+    //add options menu keyword highlingt colour,base colour(window), default save file extension
 
     public partial class MainWindow : Window
     {
@@ -222,10 +221,21 @@ namespace GLSL_Editor
         private void SavedFileModalWindow(string topLabelText, string subLabelText, string buttonText)
         {
             coverGrid.Visibility = Visibility.Visible;
+            optionsGrid.Visibility = Visibility.Hidden;
+            saveAndIdeErrorGrid.Visibility = Visibility.Visible;
             saveAndIdeErrorGrid_Toplabel.Content = topLabelText;
             saveAndIdeErrorGrid_SubLabel.Content = subLabelText;
             saveAndIdeErrorGrid_Buttonlabel.Content = buttonText;
         }
+
+        private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            coverGrid.Visibility = Visibility.Visible;
+            optionsGrid.Visibility = Visibility.Visible;
+            saveAndIdeErrorGrid.Visibility = Visibility.Hidden;
+            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
+        }
+
         private void ToolBar_RunButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
         {
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));

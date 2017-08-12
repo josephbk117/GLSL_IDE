@@ -6,72 +6,20 @@
         xmlns:local="clr-namespace:GLSL_Editor"
         mc:Ignorable="d"
         Title="GLSL Editor" Height="496" Width="706" MinWidth="700" MinHeight="490">
+    <Window.Resources>
+        <SolidColorBrush x:Name="mainBgColour" x:Key="bgcolour" Color="#FF3B2147"/>
+        <SolidColorBrush x:Name="mainSubColour" x:Key="subColour" Color="#FF624D6C"/>
+    </Window.Resources>
     <Grid>
-        <TabControl Margin="0,35,0,135" BorderThickness="0" Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
-            <TabItem Header="Vertex Shader" Background="#FF3B2147" BorderBrush="{x:Null}" Foreground="#FFA57CB8" Margin="40,0,-40,0">
-                <Grid Background="#FFE5E5E5">
-                    <RichTextBox Name="lineNumberVertex_TextBox" HorizontalAlignment="Left" IsReadOnly="True" Width="37" FontFamily="consolas" FontSize="14" Background="#FF3B2147" Foreground="#FFA57CB8" BorderBrush="White">
-                        <FlowDocument Name="lineNumberVertex_FlowDoc" LineHeight="3" PagePadding="0">
-                            <Paragraph>
-                                <Run Text="1"/>
-                            </Paragraph>
-                        </FlowDocument>
-                    </RichTextBox>
-                    <ScrollViewer Name="vertexScrollBar" ScrollChanged="ScrollViewer_ScrollChanged">
-                        <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="#FF624D6C" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded">
-                            <FlowDocument LineHeight="3" PagePadding="0">
-                                <Paragraph Background="#FF3B2147">
-                                    <Run Text="# version 140" Foreground="White"/>
-                                </Paragraph>
-                                <Paragraph Background="#FF3B2147">
-                                    <Run Text="void main()" Foreground="White"/>
-                                </Paragraph>
-                                <Paragraph Background="#FF3B2147">
-                                    <Run Text=" {" Foreground="White"/>
-                                </Paragraph>
-                                <Paragraph Background="#FF3B2147">
-                                    <Run Text=" }" Foreground="White"/>
-                                </Paragraph>
-                            </FlowDocument>
-                        </RichTextBox>
-                    </ScrollViewer>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Fragment Shader" BorderBrush="{x:Null}" Background="#FF3B2147" Foreground="#FFA57CB8" Margin="44,0,-44,0">
-                <Grid Background="#FFE5E5E5">
-                    <RichTextBox Name="lineNumberFragment_TextBox" HorizontalAlignment="Left" IsReadOnly="True" Width="37" FontFamily="consolas" FontSize="14" Background="#FF3B2147" Foreground="#FFA57CB8" BorderBrush="White">
-                        <FlowDocument Name="lineNumberFrag_FlowDoc" LineHeight="3" PagePadding="0">
-                            <Paragraph>
-                                <Run Text="1"/>
-                            </Paragraph>
-                        </FlowDocument>
-                    </RichTextBox>
-                    <ScrollViewer Name="fragmentScrollBar" ScrollChanged="ScrollViewer_ScrollChanged">
-                        <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="#FF624D6C" x:Name="glslFragmentTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded">
-                            <FlowDocument LineHeight="3" PagePadding="0">
-                                <Paragraph Background="#FF3B2147">
-                                    <Run Text="# version 140" Foreground="White"/>
-                                </Paragraph>
-                                <Paragraph Background="#FF3B2147">
-                                    <Run Text="void main()" Foreground="White"/>
-                                </Paragraph>
-                                <Paragraph Background="#FF3B2147">
-                                    <Run Text=" {" Foreground="White"/>
-                                </Paragraph>
-                                <Paragraph Background="#FF3B2147">
-                                    <Run Text=" }" Foreground="White"/>
-                                </Paragraph>
-                            </FlowDocument>
-                        </RichTextBox>
-                    </ScrollViewer>
-                </Grid>
-            </TabItem>
-        </TabControl>
         <Grid VerticalAlignment="Top" Height="35" Background="#FF3B2147">
             <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,0,0" Fill="#33FFFFFF" MouseLeftButtonUp="ToolBar_SaveButton_OnLeftMouseUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
             <Label Content="SAVE" Width="80" Margin="5,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
-            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="97" StrokeThickness="2" Margin="90,5,0,0" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
-            <Label Content="SAVE AS" Width="97" Margin="90,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="#33FFFFFF"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="97" StrokeThickness="2" Margin="90,5,0,0" MouseLeftButtonDown="GenericButton_OnMouseDown" Fill="#33FFFFFF"/>
+            <Label Content="SAVE AS" Width="97" Margin="90,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="{x:Null}"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="102" StrokeThickness="2" Margin="192,5,0,0" Fill="#33FFFFFF" MouseLeftButtonDown="GenericButton_OnMouseDown" MouseLeftButtonUp="OptionsModalWindow_OnMouseLeftButtonUp"/>
+            <Label Content="OPTIONS" Width="102" Margin="192,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="{x:Null}"/>
 
             <Rectangle HorizontalAlignment="Right" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,5,0" Fill="#33FFFFFF" MouseLeftButtonUp="ToolBar_RunButton_OnLeftMouseUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
             <Label Content="RUN" Width="80" Margin="5,3,5,5" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
@@ -80,15 +28,94 @@
         <Grid Margin="0,0,0,0" Background="#FF3B2147" Height="136" VerticalAlignment="Bottom">
             <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="0,5,0,0" Fill="#33FFFFFF" MouseLeftButtonUp="DebugWindow_ClearButtonOnLeftMouseButtonUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
             <Label Content="CLEAR" Width="80" Margin="0,3,0,106" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
-            <TextBox x:Name="debugTextBox" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Background="#FF624D6C" Foreground="White" BorderBrush="#FF8695BD" Margin="0,35,0,0"/>
+            <TextBox x:Name="debugTextBox" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Background="#FF624D6C" Foreground="White" BorderBrush="{x:Null}" Margin="0,35,0,0"/>
         </Grid>
-        <Grid Margin="0" Background="#66000000" Name="coverGrid" Visibility="Hidden">
-            <Grid Width="350" Height="150" Background="#7FFFFFFF" Name="saveAndIdeErrorGrid">
+        <!--- THE MODAL WINDOW SHOW SECTION-->
+        <Grid Margin="0" Background="#66000000" Name="coverGrid" Visibility="Hidden" Panel.ZIndex="6">
+            <Grid Width="350" Height="150" Background="#7FFFFFFF" Name="saveAndIdeErrorGrid" Visibility="Hidden">
                 <Label Name="saveAndIdeErrorGrid_Toplabel" Content="Vertex/Fragment shader saved" Margin="0,0,0,115" HorizontalContentAlignment="Center" FontSize="13" Foreground="White"/>
                 <Label Name="saveAndIdeErrorGrid_SubLabel" Content="safe file name" Margin="0,30,0,90" HorizontalContentAlignment="Center" FontSize="12" Foreground="White"/>
                 <Rectangle Margin="90,100,90,10" Fill="#66000000"/>
                 <Label Name ="saveAndIdeErrorGrid_Buttonlabel" Content="Text" Margin="90,100,90,10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" MouseLeftButtonUp="ModalWindowButton_OnMouseUp"/>
             </Grid>
+
+            <Grid Width="440" Height="250" Background="#7FFFFFFF" Name="optionsGrid" Visibility="Hidden">
+                <Label Content="Default vertex shader extension : " Height="27" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="14" HorizontalAlignment="Left" Width="237" Foreground="White"/>
+                <TextBox Height="22" Margin="0,5,10,0" TextWrapping="Wrap" Text=".vert" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
+
+                <Label Content="Default fragment shader extension : " Height="30" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="14" HorizontalAlignment="Left" Width="237" Margin="0,32,0,0" Foreground="White"/>
+                <TextBox Height="22" Margin="0,37,10,0" TextWrapping="Wrap" Text=".frag" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
+
+                
+                <Rectangle Margin="150,0,150,10" Fill="#4C000000" Height="35" VerticalAlignment="Bottom"/>
+                <Label Content="SET" Margin="150,205,150,10" FontSize="20" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseLeftButtonUp="ModalWindowButton_OnMouseUp"/>
+            </Grid>
         </Grid>
+        <TabControl Margin="0,35,0,136" TabStripPlacement="Left" BorderBrush="White" BorderThickness="0">
+            <TabItem Header="Shader set 1" BorderBrush="{x:Null}" Margin="-2,0,0,-4">
+                <Grid Background="#FF624D6C">
+                    <TabControl BorderThickness="0" x:Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                        <TabItem Header="Vertex Shader" Background="#FF3B2147" BorderBrush="{x:Null}" Foreground="#FFA57CB8" Margin="35,0,-40,0">
+                            <Grid Background="#FFE5E5E5" Margin="-2,0,0,-3">
+                                <RichTextBox x:Name="lineNumberVertex_TextBox" HorizontalAlignment="Left" IsReadOnly="True" Width="37" FontFamily="consolas" FontSize="14" Background="#FF3B2147" Foreground="#FFA57CB8" BorderBrush="White">
+                                    <FlowDocument x:Name="lineNumberVertex_FlowDoc" LineHeight="3" PagePadding="0">
+                                        <Paragraph>
+                                            <Run Text="1"/>
+                                        </Paragraph>
+                                    </FlowDocument>
+                                </RichTextBox>
+                                <ScrollViewer x:Name="vertexScrollBar" ScrollChanged="ScrollViewer_ScrollChanged">
+                                    <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="#FF624D6C" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded">
+                                        <FlowDocument LineHeight="3" PagePadding="0">
+                                            <Paragraph Background="#FF3B2147">
+                                                <Run Text="# version 140" Foreground="White"/>
+                                            </Paragraph>
+                                            <Paragraph Background="#FF3B2147">
+                                                <Run Text="void main()" Foreground="White"/>
+                                            </Paragraph>
+                                            <Paragraph Background="#FF3B2147">
+                                                <Run Text=" {" Foreground="White"/>
+                                            </Paragraph>
+                                            <Paragraph Background="#FF3B2147">
+                                                <Run Text=" }" Foreground="White"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ScrollViewer>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Fragment Shader" BorderBrush="{x:Null}" Background="#FF3B2147" Foreground="#FFA57CB8" Margin="44,0,-44,0">
+                            <Grid Background="#FFE5E5E5" Margin="-2,0,0,-3">
+                                <RichTextBox x:Name="lineNumberFragment_TextBox" HorizontalAlignment="Left" IsReadOnly="True" Width="37" FontFamily="consolas" FontSize="14" Background="#FF3B2147" Foreground="#FFA57CB8" BorderBrush="White">
+                                    <FlowDocument x:Name="lineNumberFrag_FlowDoc" LineHeight="3" PagePadding="0">
+                                        <Paragraph>
+                                            <Run Text="1"/>
+                                        </Paragraph>
+                                    </FlowDocument>
+                                </RichTextBox>
+                                <ScrollViewer x:Name="fragmentScrollBar" ScrollChanged="ScrollViewer_ScrollChanged">
+                                    <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="#FF624D6C" x:Name="glslFragmentTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded">
+                                        <FlowDocument LineHeight="3" PagePadding="0">
+                                            <Paragraph Background="#FF3B2147">
+                                                <Run Text="# version 140" Foreground="White"/>
+                                            </Paragraph>
+                                            <Paragraph Background="#FF3B2147">
+                                                <Run Text="void main()" Foreground="White"/>
+                                            </Paragraph>
+                                            <Paragraph Background="#FF3B2147">
+                                                <Run Text=" {" Foreground="White"/>
+                                            </Paragraph>
+                                            <Paragraph Background="#FF3B2147">
+                                                <Run Text=" }" Foreground="White"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ScrollViewer>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
