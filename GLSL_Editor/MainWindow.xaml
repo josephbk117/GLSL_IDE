@@ -34,14 +34,14 @@
         </Grid>
         <!--- THE MODAL WINDOW SHOW SECTION-->
         <Grid Margin="0" Background="#66000000" Name="coverGrid" Visibility="Hidden" Panel.ZIndex="6">
-            <Grid Width="350" Height="150" Background="#7FFFFFFF" Name="saveAndIdeErrorGrid" Visibility="Hidden">
+            <Grid Width="350" Height="150" Background="#7F000000" Name="saveAndIdeErrorGrid" Visibility="Hidden">
                 <Label Name="saveAndIdeErrorGrid_Toplabel" Content="Vertex/Fragment shader saved" Margin="0,0,0,115" HorizontalContentAlignment="Center" FontSize="13" Foreground="White"/>
                 <Label Name="saveAndIdeErrorGrid_SubLabel" Content="safe file name" Margin="0,30,0,90" HorizontalContentAlignment="Center" FontSize="12" Foreground="White"/>
-                <Rectangle Margin="90,100,90,10" Fill="#66000000"/>
+                <Rectangle Margin="90,100,90,10" Fill="#4CFFFFFF"/>
                 <Label Name ="saveAndIdeErrorGrid_Buttonlabel" Content="Text" Margin="90,100,90,10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" MouseLeftButtonUp="ModalWindowButton_OnMouseUp"/>
             </Grid>
 
-            <Grid Width="580" Height="400" Background="#7F000000" Name="optionsGrid" Visibility="Visible">
+            <Grid Width="580" Height="400" Background="#7F000000" Name="optionsGrid" Visibility="Hidden">
                 <Label Content="Default vertex shader extension : " Height="27" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="14" HorizontalAlignment="Left" Width="280" Foreground="White"/>
                 <TextBox Name="vertexExtensionText" Height="22" Margin="0,6,107,0" TextWrapping="Wrap" Text=".vs" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
 
@@ -108,7 +108,7 @@
                 <Grid Background="{StaticResource subBrush}">
                     <TabControl BorderThickness="0" x:Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
                         <TabItem Header="Vertex Shader" Background="{StaticResource bgBrush}" BorderBrush="{x:Null}" Foreground="{StaticResource tertBrush}" Margin="35,0,-40,0">
-                            <Grid Background="#FFE5E5E5" Margin="-2,0,0,-3">
+                            <Grid Background="#FFE5E5E5" Margin="-2,0,0,-3" >
                                 <RichTextBox x:Name="lineNumberVertex_TextBox" HorizontalAlignment="Left" IsReadOnly="True" Width="37" FontFamily="consolas" FontSize="14" Background="{StaticResource bgBrush}" Foreground="{StaticResource tertBrush}" BorderBrush="White">
                                     <FlowDocument x:Name="lineNumberVertex_FlowDoc" LineHeight="3" PagePadding="0">
                                         <Paragraph>
