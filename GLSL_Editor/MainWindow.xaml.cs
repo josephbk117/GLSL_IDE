@@ -29,11 +29,17 @@ namespace GLSL_Editor
         Regex vertexShaderSpecial = new Regex(@"gl_Position\s|gl_PointSize\s|gl_VertexID\s|gl_InstanceID\s", RegexOptions.Compiled);
         Regex fragmentShaderSpecial = new Regex(@"gl_FragCoord\s|gl_FrontFacing\s|gl_FragDepth\s", RegexOptions.Compiled);
 
+        SolidColorBrush mainBrush;
+        SolidColorBrush subBrush;
+        SolidColorBrush tertBrush;
         public MainWindow()
         {
             InitializeComponent();
             vertexShaderSaveLocation = string.Empty;
             fragmentShaderSaveLocation = string.Empty;
+            mainBrush = (SolidColorBrush)FindResource("bgBrush");
+            subBrush = (SolidColorBrush)FindResource("subBrush");
+            tertBrush = (SolidColorBrush)FindResource("tertBrush");
         }
         private void TextBox_keyUp(object sender, KeyEventArgs e)
         {
@@ -91,20 +97,20 @@ namespace GLSL_Editor
                 {
                     var match = commentRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
                     var match2 = typesRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
-                    var match3 = miscRegex.Match(start.GetTextInRun(LogicalDirection.Forward));                    
+                    var match3 = miscRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
                     var match4 = shaderSpecificRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
 
                     //Comments
                     if (match.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Backward));                        
+                        var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Backward));
                         SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(100, 255, 100));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
                     }
                     //types
                     else if (match2.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match2.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match2.Index + match2.Length, LogicalDirection.Backward));                        
+                        var textrange = new TextRange(start.GetPositionAtOffset(match2.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match2.Index + match2.Length, LogicalDirection.Backward));
                         SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(50, 180, 250));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
                     }
@@ -236,6 +242,50 @@ namespace GLSL_Editor
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
         }
 
+        private void bgColour_R_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
+
+        private void Colour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (mainBrush != null)
+            {
+                if (sender == bgColour_R)
+                    mainBrush.Color = Color.FromRgb((byte)bgColour_R.Value, mainBrush.Color.G, mainBrush.Color.B);
+                if (sender == bgColour_G)
+                    mainBrush.Color = Color.FromRgb(mainBrush.Color.R, (byte)bgColour_G.Value, mainBrush.Color.B);
+                if (sender == bgColour_B)
+                    mainBrush.Color = Color.FromRgb(mainBrush.Color.R, mainBrush.Color.G, (byte)bgColour_B.Value);
+            }
+        }
+
+        private void SubColour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (subBrush != null)
+            {
+                if (sender == subColour_R)
+                    subBrush.Color = Color.FromRgb((byte)subColour_R.Value, subBrush.Color.G, subBrush.Color.B);
+                if (sender == subColour_G)
+                    subBrush.Color = Color.FromRgb(subBrush.Color.R, (byte)subColour_G.Value, subBrush.Color.B);
+                if (sender == subColour_B)
+                    subBrush.Color = Color.FromRgb(subBrush.Color.R, subBrush.Color.G, (byte)subColour_B.Value);
+            }
+        }
+
+        private void TertColour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (tertBrush != null)
+            {
+                if (sender == tertColour_R)
+                    tertBrush.Color = Color.FromRgb((byte)tertColour_R.Value, tertBrush.Color.G, tertBrush.Color.B);
+                if (sender == tertColour_G)
+                    tertBrush.Color = Color.FromRgb(tertBrush.Color.R, (byte)tertColour_G.Value, tertBrush.Color.B);
+                if (sender == tertColour_B)
+                    tertBrush.Color = Color.FromRgb(tertBrush.Color.R, tertBrush.Color.G, (byte)tertColour_B.Value);
+            }
+        }
+
         private void ToolBar_RunButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
         {
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
@@ -258,7 +308,7 @@ namespace GLSL_Editor
                 }
             }
             else
-                SavedFileModalWindow("Cannot Run Shaders", "No Shader has been saved yet, Save both shaders to file", "OK");
+                SavedFileModalWindow("Cannot Run Shaders", "Save all shaders in shader set to file, Then Run", "OK");
         }
     }
 }
