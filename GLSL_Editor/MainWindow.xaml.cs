@@ -30,6 +30,8 @@ namespace GLSL_Editor
         Regex vertexShaderSpecial = new Regex(@"gl_Position\s|gl_PointSize\s|gl_VertexID\s|gl_InstanceID\s", RegexOptions.Compiled);
         Regex fragmentShaderSpecial = new Regex(@"gl_FragCoord\s|gl_FrontFacing\s|gl_FragDepth\s", RegexOptions.Compiled);
 
+        SolidColorBrush typesColour, miscColour, commentColour, shaderSpecificColour, baseTextColour;
+
         SolidColorBrush mainBrush;
         SolidColorBrush subBrush;
         SolidColorBrush tertBrush;
@@ -41,6 +43,12 @@ namespace GLSL_Editor
             mainBrush = (SolidColorBrush)FindResource("bgBrush");
             subBrush = (SolidColorBrush)FindResource("subBrush");
             tertBrush = (SolidColorBrush)FindResource("tertBrush");
+            baseTextColour = (SolidColorBrush)FindResource("baseTextBrush");
+
+            typesColour = new SolidColorBrush(Color.FromRgb(50, 180, 250));
+            miscColour = new SolidColorBrush(Color.FromRgb(200, 200, 255));
+            commentColour = new SolidColorBrush(Color.FromRgb(100, 255, 100));
+            shaderSpecificColour = new SolidColorBrush(Color.FromRgb(100, 255, 255));
         }
         private void TextBox_keyUp(object sender, KeyEventArgs e)
         {
@@ -90,7 +98,7 @@ namespace GLSL_Editor
                 shaderSpecificRegex = fragmentShaderSpecial;
 
             TextRange range = new TextRange(currentTextBox.Document.ContentStart, currentTextBox.Document.ContentEnd);
-            range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.White));
+            range.ApplyPropertyValue(TextElement.ForegroundProperty, baseTextColour);
             var start = currentTextBox.Document.ContentStart;
             while (start != null && start.CompareTo(currentTextBox.Document.ContentEnd) < 0)
             {
@@ -105,28 +113,24 @@ namespace GLSL_Editor
                     if (match.Length > 0)
                     {
                         var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Backward));
-                        SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(100, 255, 100));
-                        textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
+                        textrange.ApplyPropertyValue(TextElement.ForegroundProperty, commentColour);
                     }
                     //types
                     else if (match2.Length > 0)
                     {
                         var textrange = new TextRange(start.GetPositionAtOffset(match2.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match2.Index + match2.Length, LogicalDirection.Backward));
-                        SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(50, 180, 250));
-                        textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
+                        textrange.ApplyPropertyValue(TextElement.ForegroundProperty, typesColour);
                     }
                     //misc
                     else if (match3.Length > 0)
                     {
                         var textrange = new TextRange(start.GetPositionAtOffset(match3.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match3.Index + match3.Length, LogicalDirection.Backward));
-                        SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(200, 200, 255));
-                        textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
+                        textrange.ApplyPropertyValue(TextElement.ForegroundProperty, miscColour);
                     }
                     else if (match4.Length > 0)
                     {
                         var textrange = new TextRange(start.GetPositionAtOffset(match4.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match4.Index + match4.Length, LogicalDirection.Backward));
-                        SolidColorBrush colourBrush = new SolidColorBrush(Color.FromRgb(100, 255, 255));
-                        textrange.ApplyPropertyValue(TextElement.ForegroundProperty, colourBrush);
+                        textrange.ApplyPropertyValue(TextElement.ForegroundProperty, shaderSpecificColour);
                     }
                 }
                 start = start.GetNextContextPosition(LogicalDirection.Forward);
@@ -147,8 +151,10 @@ namespace GLSL_Editor
             {
                 if (vertexShaderSaveLocation == string.Empty)
                 {
-                    System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
-                    sfd.Filter = "Vertex shader" + defaultVertexSaveType;
+                    System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog()
+                    {
+                        Filter = "Vertex shader" + defaultVertexSaveType
+                    };
                     if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         vertexShaderSaveLocation = sfd.FileName;
@@ -180,8 +186,10 @@ namespace GLSL_Editor
             {
                 if (fragmentShaderSaveLocation == string.Empty)
                 {
-                    System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
-                    sfd.Filter = "Fragment Shader" + defaultFragmentSaveType;
+                    System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog()
+                    {
+                        Filter = "Fragment Shader" + defaultFragmentSaveType
+                    };
                     if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         fragmentShaderSaveLocation = sfd.FileName;
@@ -248,6 +256,24 @@ namespace GLSL_Editor
             saveAndIdeErrorGrid_Buttonlabel.Content = buttonText;
         }
 
+        private void TextColour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                if (sender == dataTypeColour_R || sender == dataTypeColour_G || sender == dataTypeColour_B)
+                    typesColour.Color = Color.FromRgb((byte)dataTypeColour_R.Value, (byte)dataTypeColour_G.Value, (byte)dataTypeColour_B.Value);
+                if (sender == commentColour_R || sender == commentColour_G || sender == commentColour_B)
+                    commentColour.Color = Color.FromRgb((byte)commentColour_R.Value, (byte)commentColour_G.Value, (byte)commentColour_B.Value);
+                if (sender == varColour_R || sender == varColour_G || sender == varColour_B)
+                    shaderSpecificColour.Color = Color.FromRgb((byte)varColour_R.Value, (byte)varColour_G.Value, (byte)varColour_B.Value);
+                if (sender == miscColour_R || sender == miscColour_G || sender == miscColour_B)
+                    miscColour.Color = Color.FromRgb((byte)miscColour_R.Value, (byte)miscColour_G.Value, (byte)miscColour_B.Value);
+                if (sender == baseTextColour_R || sender == baseTextColour_G || sender == baseTextColour_B)
+                    baseTextColour.Color = Color.FromRgb((byte)baseTextColour_R.Value, (byte)baseTextColour_G.Value, (byte)baseTextColour_B.Value);
+            }
+            catch { }
+        }
+
         private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             coverGrid.Visibility = Visibility.Visible;
@@ -260,12 +286,7 @@ namespace GLSL_Editor
         {
             if (mainBrush != null)
             {
-                if (sender == bgColour_R)
-                    mainBrush.Color = Color.FromRgb((byte)bgColour_R.Value, mainBrush.Color.G, mainBrush.Color.B);
-                if (sender == bgColour_G)
-                    mainBrush.Color = Color.FromRgb(mainBrush.Color.R, (byte)bgColour_G.Value, mainBrush.Color.B);
-                if (sender == bgColour_B)
-                    mainBrush.Color = Color.FromRgb(mainBrush.Color.R, mainBrush.Color.G, (byte)bgColour_B.Value);
+                mainBrush.Color = Color.FromRgb((byte)bgColour_R.Value, (byte)bgColour_G.Value, (byte)bgColour_B.Value);
             }
         }
 
@@ -273,12 +294,7 @@ namespace GLSL_Editor
         {
             if (subBrush != null)
             {
-                if (sender == subColour_R)
-                    subBrush.Color = Color.FromRgb((byte)subColour_R.Value, subBrush.Color.G, subBrush.Color.B);
-                if (sender == subColour_G)
-                    subBrush.Color = Color.FromRgb(subBrush.Color.R, (byte)subColour_G.Value, subBrush.Color.B);
-                if (sender == subColour_B)
-                    subBrush.Color = Color.FromRgb(subBrush.Color.R, subBrush.Color.G, (byte)subColour_B.Value);
+                subBrush.Color = Color.FromRgb((byte)subColour_R.Value, (byte)subColour_G.Value, (byte)subColour_B.Value);
             }
         }
 
@@ -286,12 +302,7 @@ namespace GLSL_Editor
         {
             if (tertBrush != null)
             {
-                if (sender == tertColour_R)
-                    tertBrush.Color = Color.FromRgb((byte)tertColour_R.Value, tertBrush.Color.G, tertBrush.Color.B);
-                if (sender == tertColour_G)
-                    tertBrush.Color = Color.FromRgb(tertBrush.Color.R, (byte)tertColour_G.Value, tertBrush.Color.B);
-                if (sender == tertColour_B)
-                    tertBrush.Color = Color.FromRgb(tertBrush.Color.R, tertBrush.Color.G, (byte)tertColour_B.Value);
+                tertBrush.Color = Color.FromRgb((byte)tertColour_R.Value, (byte)tertColour_G.Value, (byte)tertColour_B.Value);
             }
         }
 

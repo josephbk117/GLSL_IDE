@@ -10,6 +10,7 @@
         <SolidColorBrush Color="#FF3B2147" x:Key="bgBrush"/>
         <SolidColorBrush Color="#FF624D6C" x:Key="subBrush"/>
         <SolidColorBrush Color="#FFB0A0BD" x:Key="tertBrush"/>
+        <SolidColorBrush Color="White" x:Key="baseTextBrush"/>
     </Window.Resources>
     <Grid Background="{StaticResource subBrush}">
         <Grid VerticalAlignment="Top" Height="35" Background="{StaticResource bgBrush}">
@@ -40,31 +41,60 @@
                 <Label Name ="saveAndIdeErrorGrid_Buttonlabel" Content="Text" Margin="90,100,90,10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" MouseLeftButtonUp="ModalWindowButton_OnMouseUp"/>
             </Grid>
 
-            <Grid Width="440" Height="340" Background="#99FFFFFF" Name="optionsGrid" Visibility="Hidden">
-                <Label Content="Default vertex shader extension : " Height="27" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="14" HorizontalAlignment="Left" Width="237" Foreground="White"/>
-                <TextBox Name="vertexExtensionText" Height="22" Margin="0,5,10,0" TextWrapping="Wrap" Text=".vs" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
+            <Grid Width="580" Height="400" Background="#7F000000" Name="optionsGrid" Visibility="Visible">
+                <Label Content="Default vertex shader extension : " Height="27" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="14" HorizontalAlignment="Left" Width="280" Foreground="White"/>
+                <TextBox Name="vertexExtensionText" Height="22" Margin="0,6,107,0" TextWrapping="Wrap" Text=".vs" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
 
-                <Label Content="Default fragment shader extension : " Height="30" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="14" HorizontalAlignment="Left" Width="237" Margin="0,32,0,0" Foreground="White"/>
-                <TextBox Name="fragmentExtensionText" Height="22" Margin="0,37,10,0" TextWrapping="Wrap" Text=".fs" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
+                <Label Content="Default fragment shader extension : " Height="30" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="14" HorizontalAlignment="Left" Width="280" Margin="0,32,0,0" Foreground="White"/>
+                <TextBox Name="fragmentExtensionText" Height="22" Margin="0,37,107,0" TextWrapping="Wrap" Text=".fs" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
 
-                <Rectangle Name="optionSetButton" Margin="150,0,150,10" Fill="#4C000000" Height="35" VerticalAlignment="Bottom" MouseLeftButtonUp="ModalWindowButton_OnMouseUp"/>
-                <Label Content="SET" Margin="150,295,150,10" FontSize="20" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsHitTestVisible="False"/>
+                <Rectangle Name="optionSetButton" Margin="200,0,200,10" Fill="#4CFFFFFF" Height="35" VerticalAlignment="Bottom" MouseLeftButtonUp="ModalWindowButton_OnMouseUp"/>
+                <Label Content="SET" Margin="200,355,200,10" FontSize="20" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsHitTestVisible="False"/>
 
                 <Rectangle Margin="0,64,0,0" Fill="White" Height="4" VerticalAlignment="Top"/>
-                <Label Content="Window Colour Scheme" Margin="0,64,0,0" Height="28" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Center" FontSize="15" VerticalContentAlignment="Top"/>
-                <Slider Name="bgColour_R" Margin="10,94,300,0" VerticalAlignment="Top" Background="Red" ValueChanged="Colour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1"/>
-                <Slider Name="bgColour_G" Margin="10,112,300,0" VerticalAlignment="Top" Background="Lime" ValueChanged="Colour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1"/>
-                <Slider Name="bgColour_B" Margin="10,130,300,0" VerticalAlignment="Top" Background="Blue" ValueChanged="Colour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1"/>
+                <Label Content="Window Colour Scheme" Margin="0,146,0,0" Height="28" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Center" FontSize="15" VerticalContentAlignment="Top" Background="#4CFFFFFF"/>
+                <Slider Name="bgColour_R" Margin="51,185,0,0" VerticalAlignment="Top" Background="Red" ValueChanged="Colour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider Name="bgColour_G" Margin="51,203,0,0" VerticalAlignment="Top" Background="Lime" ValueChanged="Colour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider Name="bgColour_B" Margin="51,221,0,0" VerticalAlignment="Top" Background="Blue" ValueChanged="Colour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
 
-                <Slider Name="subColour_R" Margin="150,94,160,0" VerticalAlignment="Top" Background="Red" ValueChanged="SubColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1"/>
-                <Slider Name="subColour_G" Margin="150,112,160,0" VerticalAlignment="Top" Background="Lime" ValueChanged="SubColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1"/>
-                <Slider Name="subColour_B" Margin="150,130,160,0" VerticalAlignment="Top" Background="Blue" ValueChanged="SubColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1"/>
+                <Slider Name="subColour_R" Margin="221,185,0,0" VerticalAlignment="Top" Background="Red" ValueChanged="SubColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider Name="subColour_G" Margin="221,203,0,0" VerticalAlignment="Top" Background="Lime" ValueChanged="SubColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider Name="subColour_B" Margin="221,221,0,0" VerticalAlignment="Top" Background="Blue" ValueChanged="SubColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
 
-                <Slider Name="tertColour_R" Margin="290,92,10,0" VerticalAlignment="Top" Background="Red" ValueChanged="TertColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1"/>
-                <Slider Name="tertColour_G" Margin="290,110,10,0" VerticalAlignment="Top" Background="Lime" ValueChanged="TertColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1"/>
-                <Slider Name="tertColour_B" Margin="290,128,10,0" VerticalAlignment="Top" Background="Blue" ValueChanged="TertColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1"/>
+                <Slider Name="tertColour_R" Margin="0,185,49,0" VerticalAlignment="Top" Background="Red" ValueChanged="TertColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Right" Width="140"/>
+                <Slider Name="tertColour_G" Margin="0,203,49,0" VerticalAlignment="Top" Background="Lime" ValueChanged="TertColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Right" Width="140"/>
+                <Slider Name="tertColour_B" Margin="0,221,49,0" VerticalAlignment="Top" Background="Blue" ValueChanged="TertColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Right" Width="140"/>
 
-                <Rectangle Margin="0,153,0,0" Fill="White" Height="4" VerticalAlignment="Top"/>
+                <Rectangle Margin="0,142,0,0" Fill="White" Height="4" VerticalAlignment="Top"/>
+                <Slider x:Name="baseTextColour_R" Margin="285,78,0,0" VerticalAlignment="Top" Background="Red" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="188" Value="255"/>
+                <Slider x:Name="baseTextColour_G" Margin="285,96,0,0" VerticalAlignment="Top" Background="Lime" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="188" Value="255"/>
+                <Slider x:Name="baseTextColour_B" Margin="285,114,0,0" VerticalAlignment="Top" Background="Blue" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="188" Value="255"/>
+                
+                <Slider x:Name="dataTypeColour_R" Margin="10,287,0,0" VerticalAlignment="Top" Background="Red" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider x:Name="dataTypeColour_G" Margin="10,305,0,0" VerticalAlignment="Top" Background="Lime" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider x:Name="dataTypeColour_B" Margin="10,323,0,0" VerticalAlignment="Top" Background="Blue" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+
+                <Slider x:Name="commentColour_R" Margin="154,287,0,0" VerticalAlignment="Top" Background="Red" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider x:Name="commentColour_G" Margin="154,305,0,0" VerticalAlignment="Top" Background="Lime" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider x:Name="commentColour_B" Margin="154,323,0,0" VerticalAlignment="Top" Background="Blue" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+
+                <Slider x:Name="varColour_R" Margin="297,287,0,0" VerticalAlignment="Top" Background="Red" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider x:Name="varColour_G" Margin="297,305,0,0" VerticalAlignment="Top" Background="Lime" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider x:Name="varColour_B" Margin="297,323,0,0" VerticalAlignment="Top" Background="Blue" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+
+                <Slider x:Name="miscColour_R" Margin="440,287,0,0" VerticalAlignment="Top" Background="Red" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider x:Name="miscColour_G" Margin="440,305,0,0" VerticalAlignment="Top" Background="Lime" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130"/>
+                <Slider x:Name="miscColour_B" Margin="440,0,0,59" Background="Blue" ValueChanged="TextColour_SliderValueChanged" SmallChange="1" LargeChange="5" Maximum="255" Minimum="1" HorizontalAlignment="Left" Width="130" Height="18" VerticalAlignment="Bottom"/>
+
+                <Rectangle Margin="0,244,0,0" Fill="White" Height="4" VerticalAlignment="Top"/>
+                <Label Content="Base Text Colour : " Height="30" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="14" HorizontalAlignment="Left" Width="280" Margin="0,89,0,0" Foreground="White"/>
+                <Rectangle HorizontalAlignment="Left" Height="30" Margin="16,197,0,0" VerticalAlignment="Top" Width="30" Fill="{StaticResource bgBrush}"/>
+                <Rectangle HorizontalAlignment="Left" Height="30" Margin="186,197,0,0" VerticalAlignment="Top" Width="30" Fill="{StaticResource subBrush}"/>
+                <Rectangle HorizontalAlignment="Left" Height="30" Margin="356,197,0,0" VerticalAlignment="Top" Width="30" Fill="{StaticResource tertBrush}"/>
+                <Label Content="Data Type" Background="#4CFFFFFF" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Width="130" Foreground="White" HorizontalContentAlignment="Center"/>
+                <Label Content="Comments" Background="#4CFFFFFF" HorizontalAlignment="Left" Margin="154,256,0,0" VerticalAlignment="Top" Width="130" Foreground="White" HorizontalContentAlignment="Center"/>
+                <Label Content="Pre-Defined Variables" Background="#4CFFFFFF" HorizontalAlignment="Left" Margin="297,256,0,0" VerticalAlignment="Top" Width="130" Foreground="White" HorizontalContentAlignment="Center"/>
+                <Label Content="Misc" Background="#4CFFFFFF" HorizontalAlignment="Left" Margin="440,256,0,0" VerticalAlignment="Top" Width="130" Foreground="White" HorizontalContentAlignment="Center"/>
             </Grid>
         </Grid>
         <TabControl Margin="0,35,0,136" TabStripPlacement="Left" BorderBrush="White" BorderThickness="0">
@@ -90,16 +120,16 @@
                                     <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="{StaticResource subBrush}" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded">
                                         <FlowDocument LineHeight="3" PagePadding="0">
                                             <Paragraph Background="{StaticResource bgBrush}">
-                                                <Run Text="# version 140" Foreground="White"/>
+                                                <Run Text="# version 140" Foreground="{StaticResource baseTextBrush}"/>
                                             </Paragraph>
                                             <Paragraph Background="{StaticResource bgBrush}">
-                                                <Run Text="void main()" Foreground="White"/>
+                                                <Run Text="void main()" Foreground="{StaticResource baseTextBrush}"/>
                                             </Paragraph>
                                             <Paragraph Background="{StaticResource bgBrush}">
-                                                <Run Text=" {" Foreground="White"/>
+                                                <Run Text=" {" Foreground="{StaticResource baseTextBrush}"/>
                                             </Paragraph>
                                             <Paragraph Background="{StaticResource bgBrush}">
-                                                <Run Text=" }" Foreground="White"/>
+                                                <Run Text=" }" Foreground="{StaticResource baseTextBrush}"/>
                                             </Paragraph>
                                         </FlowDocument>
                                     </RichTextBox>
@@ -119,16 +149,16 @@
                                     <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="{StaticResource subBrush}" x:Name="glslFragmentTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded">
                                         <FlowDocument LineHeight="3" PagePadding="0">
                                             <Paragraph Background="{StaticResource bgBrush}">
-                                                <Run Text="# version 140" Foreground="White"/>
+                                                <Run Text="# version 140" Foreground="{StaticResource baseTextBrush}"/>
                                             </Paragraph>
                                             <Paragraph Background="{StaticResource bgBrush}">
-                                                <Run Text="void main()" Foreground="White"/>
+                                                <Run Text="void main()" Foreground="{StaticResource baseTextBrush}"/>
                                             </Paragraph>
                                             <Paragraph Background="{StaticResource bgBrush}">
-                                                <Run Text=" {" Foreground="White"/>
+                                                <Run Text=" {" Foreground="{StaticResource baseTextBrush}"/>
                                             </Paragraph>
                                             <Paragraph Background="{StaticResource bgBrush}">
-                                                <Run Text=" }" Foreground="White"/>
+                                                <Run Text=" }" Foreground="{StaticResource baseTextBrush}"/>
                                             </Paragraph>
                                         </FlowDocument>
                                     </RichTextBox>
