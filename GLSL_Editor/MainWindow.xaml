@@ -32,7 +32,7 @@
             <TextBox x:Name="debugTextBox" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Background="{StaticResource subBrush}" Foreground="White" BorderBrush="{x:Null}" Margin="0,35,0,0"/>
         </Grid>
         <!--- THE MODAL WINDOW SHOW SECTION-->
-        <Grid Margin="0" Background="#66000000" Name="coverGrid" Visibility="Visible" Panel.ZIndex="6">
+        <Grid Margin="0" Background="#66000000" Name="coverGrid" Visibility="Hidden" Panel.ZIndex="6">
             <Grid Width="350" Height="150" Background="#7FFFFFFF" Name="saveAndIdeErrorGrid" Visibility="Hidden">
                 <Label Name="saveAndIdeErrorGrid_Toplabel" Content="Vertex/Fragment shader saved" Margin="0,0,0,115" HorizontalContentAlignment="Center" FontSize="13" Foreground="White"/>
                 <Label Name="saveAndIdeErrorGrid_SubLabel" Content="safe file name" Margin="0,30,0,90" HorizontalContentAlignment="Center" FontSize="12" Foreground="White"/>
@@ -40,7 +40,7 @@
                 <Label Name ="saveAndIdeErrorGrid_Buttonlabel" Content="Text" Margin="90,100,90,10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" MouseLeftButtonUp="ModalWindowButton_OnMouseUp"/>
             </Grid>
 
-            <Grid Width="440" Height="340" Background="#7FFFFFFF" Name="optionsGrid" Visibility="Visible">
+            <Grid Width="440" Height="340" Background="#99FFFFFF" Name="optionsGrid" Visibility="Hidden">
                 <Label Content="Default vertex shader extension : " Height="27" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="14" HorizontalAlignment="Left" Width="237" Foreground="White"/>
                 <TextBox Name="vertexExtensionText" Height="22" Margin="0,5,10,0" TextWrapping="Wrap" Text=".vs" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
 

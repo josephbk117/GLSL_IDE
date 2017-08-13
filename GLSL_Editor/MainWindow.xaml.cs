@@ -237,7 +237,6 @@ namespace GLSL_Editor
                 defaultVertexSaveType = "(." + vertexExtensionText.Text.Replace(".", "") + ")|*." + vertexExtensionText.Text.Replace(".", "");
             }
             coverGrid.Visibility = Visibility.Hidden;
-
         }
         private void SavedFileModalWindow(string topLabelText, string subLabelText, string buttonText)
         {
@@ -255,11 +254,6 @@ namespace GLSL_Editor
             optionsGrid.Visibility = Visibility.Visible;
             saveAndIdeErrorGrid.Visibility = Visibility.Hidden;
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
-        }
-
-        private void bgColour_R_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
         }
 
         private void Colour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
