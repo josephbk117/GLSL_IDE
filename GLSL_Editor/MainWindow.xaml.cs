@@ -14,13 +14,14 @@ using System.Windows.Shapes;
 
 namespace GLSL_Editor
 {
-
     //Make tab controls of tab controls, each tone tab contains a vertex an frag tab control, this tab control placed vertically
     //add options menu keyword highlingt colour,base colour(window), default save file extension
 
     public partial class MainWindow : Window
     {
         string vertexShaderSaveLocation, fragmentShaderSaveLocation;
+        string defaultVertexSaveType = "(.vs)|*.vs";
+        string defaultFragmentSaveType = "(.fs)|*.fs";
         Process process;
 
         Regex typesRegex = new Regex(@"(vec1|vec2|vec3|vec4|mat2|mat3|mat4|float|int|uint|double|bool|void|sampler1D|sampler2D|sampler3D|struct)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -147,6 +148,7 @@ namespace GLSL_Editor
                 if (vertexShaderSaveLocation == string.Empty)
                 {
                     System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
+                    sfd.Filter = "Vertex shader" + defaultVertexSaveType;
                     if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         vertexShaderSaveLocation = sfd.FileName;
@@ -155,6 +157,7 @@ namespace GLSL_Editor
                             TextRange text = new TextRange(glslVertexTextbox.Document.ContentStart, glslVertexTextbox.Document.ContentEnd);
                             text.Save(fs, DataFormats.Text);
                         }
+                        SavedFileModalWindow("Vertex Shader Saved", vertexShaderSaveLocation, "OK");
                     }
                 }
                 else
@@ -167,15 +170,18 @@ namespace GLSL_Editor
                         text.Save(fs, DataFormats.Text);
                     }
                 }
-                int len = vertexShaderSaveLocation.Split('\\').Length;
-                ((TabItem)tabControl.SelectedItem).Header = vertexShaderSaveLocation.Split('\\')[len - 1];
-                SavedFileModalWindow("Vertex Shader Saved", vertexShaderSaveLocation, "OK");
+                if (vertexShaderSaveLocation.Length > 2)
+                {
+                    int len = vertexShaderSaveLocation.Split('\\').Length;
+                    ((TabItem)tabControl.SelectedItem).Header = vertexShaderSaveLocation.Split('\\')[len - 1];
+                }
             }
             else
             {
                 if (fragmentShaderSaveLocation == string.Empty)
                 {
                     System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
+                    sfd.Filter = "Fragment Shader" + defaultFragmentSaveType;
                     if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         fragmentShaderSaveLocation = sfd.FileName;
@@ -184,6 +190,7 @@ namespace GLSL_Editor
                             TextRange text = new TextRange(glslFragmentTextbox.Document.ContentStart, glslFragmentTextbox.Document.ContentEnd);
                             text.Save(fs, DataFormats.Text);
                         }
+                        SavedFileModalWindow("Fragment Shader Saved", fragmentShaderSaveLocation, "OK");
                     }
                 }
                 else
@@ -196,9 +203,11 @@ namespace GLSL_Editor
                         text.Save(fs, DataFormats.Text);
                     }
                 }
-                int len = fragmentShaderSaveLocation.Split('\\').Length;
-                ((TabItem)tabControl.SelectedItem).Header = fragmentShaderSaveLocation.Split('\\')[len - 1];
-                SavedFileModalWindow("Fragment Shader Saved", fragmentShaderSaveLocation, "OK");
+                if (fragmentShaderSaveLocation.Length > 2)
+                {
+                    int len = fragmentShaderSaveLocation.Split('\\').Length;
+                    ((TabItem)tabControl.SelectedItem).Header = fragmentShaderSaveLocation.Split('\\')[len - 1];
+                }
             }
         }
 
@@ -222,7 +231,13 @@ namespace GLSL_Editor
 
         private void ModalWindowButton_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
+            if (sender == optionSetButton)
+            {
+                defaultFragmentSaveType = "(." + fragmentExtensionText.Text.Replace(".", "") + ")|*." + fragmentExtensionText.Text.Replace(".", "");
+                defaultVertexSaveType = "(." + vertexExtensionText.Text.Replace(".", "") + ")|*." + vertexExtensionText.Text.Replace(".", "");
+            }
             coverGrid.Visibility = Visibility.Hidden;
+
         }
         private void SavedFileModalWindow(string topLabelText, string subLabelText, string buttonText)
         {
