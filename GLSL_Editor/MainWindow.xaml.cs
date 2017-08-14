@@ -71,13 +71,14 @@ namespace GLSL_Editor
         {
             RichTextBox lineNumberTextBox = new RichTextBox();
             FlowDocument flowDoc = new FlowDocument();
-            
-            foreach(TextEditorTypeAndScrollHelper txtEdiHelp in textBoxCollection)
+            TextEditorTypeAndScrollHelper helper = new TextEditorTypeAndScrollHelper();
+            foreach (TextEditorTypeAndScrollHelper txtEdiHelp in textBoxCollection)
             {
                 if(txtEdiHelp.GetShaderTextBox() == currentTextBox)
                 {
                     lineNumberTextBox = txtEdiHelp.GetCorrespondingLineTextBox();
                     flowDoc = lineNumberTextBox.Document;
+                    helper = txtEdiHelp;
                     break;
                 }
             }
@@ -99,7 +100,7 @@ namespace GLSL_Editor
             }
 
             Regex shaderSpecificRegex;
-            if (currentTextBox == glslVertexTextbox)
+            if (helper.GetShaderType() == TextEditorTypeAndScrollHelper.ShaderType.VERTEX)
                 shaderSpecificRegex = vertexShaderSpecial;
             else
                 shaderSpecificRegex = fragmentShaderSpecial;
@@ -349,6 +350,9 @@ namespace GLSL_Editor
 
             insideGrid2.Children.Add(lineNumberTextBox2);
             insideGrid2.Children.Add(scViewer2);
+
+            textBoxCollection.Add(new TextEditorTypeAndScrollHelper(TextEditorTypeAndScrollHelper.ShaderType.VERTEX, acVerTextBox, lineNumberTextBox1));
+            textBoxCollection.Add(new TextEditorTypeAndScrollHelper(TextEditorTypeAndScrollHelper.ShaderType.FRAGMENT, acFragTextBox, lineNumberTextBox2));
 
             tItem1.Content = insideGrid1;
             tItem2.Content = insideGrid2;

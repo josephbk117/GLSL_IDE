@@ -28,6 +28,10 @@ namespace GLSL_Editor
             this.shaderTextBox = shaderTextBox;
             this.lineNumberDisplay = lineNumberTextBox;
         }
+        public TextEditorTypeAndScrollHelper()
+        {
+            this.shaderType = ShaderType.VERTEX;
+        }
 
         public ShaderType GetShaderType()
         {
