@@ -16,8 +16,6 @@ namespace GLSL_Editor
 {
     public partial class MainWindow : Window
     {
-        //There will always be one additional shader set tab, inside it will be a button to add a new shader set
-
         string vertexShaderSaveLocation, fragmentShaderSaveLocation;
         string defaultVertexSaveType = "(.vs)|*.vs";
         string defaultFragmentSaveType = "(.fs)|*.fs";
@@ -34,6 +32,9 @@ namespace GLSL_Editor
         SolidColorBrush mainBrush;
         SolidColorBrush subBrush;
         SolidColorBrush tertBrush;
+
+        List<TextEditorTypeAndScrollHelper> textBoxCollection;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -48,6 +49,12 @@ namespace GLSL_Editor
             miscColour = new SolidColorBrush(Color.FromRgb(200, 200, 255));
             commentColour = new SolidColorBrush(Color.FromRgb(100, 255, 100));
             shaderSpecificColour = new SolidColorBrush(Color.FromRgb(100, 255, 255));
+
+            textBoxCollection = new List<TextEditorTypeAndScrollHelper>
+            {
+                new TextEditorTypeAndScrollHelper(TextEditorTypeAndScrollHelper.ShaderType.VERTEX, glslVertexTextbox, lineNumberVertex_TextBox),
+                new TextEditorTypeAndScrollHelper(TextEditorTypeAndScrollHelper.ShaderType.FRAGMENT, glslFragmentTextbox, lineNumberFragment_TextBox)
+            };
         }
         private void TextBox_keyUp(object sender, KeyEventArgs e)
         {
@@ -62,18 +69,19 @@ namespace GLSL_Editor
 
         private void SetUpLineAndFormat(RichTextBox currentTextBox)
         {
-            RichTextBox lineNumberTextBox;
-            FlowDocument flowDoc;
-            if (currentTextBox == glslVertexTextbox)
+            RichTextBox lineNumberTextBox = new RichTextBox();
+            FlowDocument flowDoc = new FlowDocument();
+            
+            foreach(TextEditorTypeAndScrollHelper txtEdiHelp in textBoxCollection)
             {
-                lineNumberTextBox = lineNumberVertex_TextBox;
-                flowDoc = lineNumberVertex_FlowDoc;
+                if(txtEdiHelp.GetShaderTextBox() == currentTextBox)
+                {
+                    lineNumberTextBox = txtEdiHelp.GetCorrespondingLineTextBox();
+                    flowDoc = lineNumberTextBox.Document;
+                    break;
+                }
             }
-            else
-            {
-                lineNumberTextBox = lineNumberFragment_TextBox;
-                flowDoc = lineNumberFrag_FlowDoc;
-            }
+
             int someBigNumber = int.MaxValue;
             int currentLineNumber;
             TextPointer tp = currentTextBox.CaretPosition;
@@ -99,6 +107,11 @@ namespace GLSL_Editor
             TextRange range = new TextRange(currentTextBox.Document.ContentStart, currentTextBox.Document.ContentEnd);
             range.ApplyPropertyValue(TextElement.ForegroundProperty, baseTextColour);
             var start = currentTextBox.Document.ContentStart;
+            start = PerformSytaxHighlighting(currentTextBox, shaderSpecificRegex, start);
+        }
+
+        private TextPointer PerformSytaxHighlighting(RichTextBox currentTextBox, Regex shaderSpecificRegex, TextPointer start)
+        {
             while (start != null && start.CompareTo(currentTextBox.Document.ContentEnd) < 0)
             {
                 if (start.GetPointerContext(LogicalDirection.Forward) == TextPointerContext.Text)
@@ -111,29 +124,34 @@ namespace GLSL_Editor
                     //Comments
                     if (match.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Backward));
+                        var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward), 
+                            start.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Backward));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, commentColour);
                     }
                     //types
                     else if (match2.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match2.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match2.Index + match2.Length, LogicalDirection.Backward));
+                        var textrange = new TextRange(start.GetPositionAtOffset(match2.Index, LogicalDirection.Forward), 
+                            start.GetPositionAtOffset(match2.Index + match2.Length, LogicalDirection.Backward));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, typesColour);
                     }
                     //misc
                     else if (match3.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match3.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match3.Index + match3.Length, LogicalDirection.Backward));
+                        var textrange = new TextRange(start.GetPositionAtOffset(match3.Index, LogicalDirection.Forward), 
+                            start.GetPositionAtOffset(match3.Index + match3.Length, LogicalDirection.Backward));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, miscColour);
                     }
                     else if (match4.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match4.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match4.Index + match4.Length, LogicalDirection.Backward));
+                        var textrange = new TextRange(start.GetPositionAtOffset(match4.Index, LogicalDirection.Forward), 
+                            start.GetPositionAtOffset(match4.Index + match4.Length, LogicalDirection.Backward));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, shaderSpecificColour);
                     }
                 }
                 start = start.GetNextContextPosition(LogicalDirection.Forward);
             }
+            return start;
         }
 
         private void DebugWindow_ClearButtonOnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
