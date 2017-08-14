@@ -28,7 +28,6 @@ namespace GLSL_Editor
         Regex fragmentShaderSpecial = new Regex(@"gl_FragCoord\s|gl_FrontFacing\s|gl_FragDepth\s", RegexOptions.Compiled);
 
         SolidColorBrush typesColour, miscColour, commentColour, shaderSpecificColour, baseTextColour;
-
         SolidColorBrush mainBrush;
         SolidColorBrush subBrush;
         SolidColorBrush tertBrush;
@@ -74,7 +73,7 @@ namespace GLSL_Editor
             TextEditorTypeAndScrollHelper helper = new TextEditorTypeAndScrollHelper();
             foreach (TextEditorTypeAndScrollHelper txtEdiHelp in textBoxCollection)
             {
-                if(txtEdiHelp.GetShaderTextBox() == currentTextBox)
+                if (txtEdiHelp.GetShaderTextBox() == currentTextBox)
                 {
                     lineNumberTextBox = txtEdiHelp.GetCorrespondingLineTextBox();
                     flowDoc = lineNumberTextBox.Document;
@@ -125,27 +124,27 @@ namespace GLSL_Editor
                     //Comments
                     if (match.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward), 
+                        var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward),
                             start.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Backward));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, commentColour);
                     }
                     //types
                     else if (match2.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match2.Index, LogicalDirection.Forward), 
+                        var textrange = new TextRange(start.GetPositionAtOffset(match2.Index, LogicalDirection.Forward),
                             start.GetPositionAtOffset(match2.Index + match2.Length, LogicalDirection.Backward));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, typesColour);
                     }
                     //misc
                     else if (match3.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match3.Index, LogicalDirection.Forward), 
+                        var textrange = new TextRange(start.GetPositionAtOffset(match3.Index, LogicalDirection.Forward),
                             start.GetPositionAtOffset(match3.Index + match3.Length, LogicalDirection.Backward));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, miscColour);
                     }
                     else if (match4.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match4.Index, LogicalDirection.Forward), 
+                        var textrange = new TextRange(start.GetPositionAtOffset(match4.Index, LogicalDirection.Forward),
                             start.GetPositionAtOffset(match4.Index + match4.Length, LogicalDirection.Backward));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, shaderSpecificColour);
                     }
@@ -244,10 +243,13 @@ namespace GLSL_Editor
 
         private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            if (sender == vertexScrollBar)
-                lineNumberVertex_TextBox.ScrollToVerticalOffset(e.VerticalOffset);
-            else
-                lineNumberFragment_TextBox.ScrollToVerticalOffset(e.VerticalOffset);
+            foreach (TextEditorTypeAndScrollHelper helper in textBoxCollection)
+            {
+                if (((ScrollViewer)sender).Content == helper.GetShaderTextBox())
+                {
+                    helper.GetCorrespondingLineTextBox().ScrollToVerticalOffset(((ScrollViewer)sender).VerticalOffset);
+                }
+            }
         }
 
         private void RichTextbox_OnLoaded(object sender, RoutedEventArgs e)
@@ -294,8 +296,6 @@ namespace GLSL_Editor
 
         private void ShaderSetAdd_OnMouseLeftUp(object sender, MouseButtonEventArgs e)
         {
-            //Create new tab item, set header name,margins
-            //Header="Add Shader Set" BorderBrush="{x:Null}" Margin="-2,0,1,-11" Foreground="{StaticResource tertBrush}" Height="27" VerticalAlignment="Bottom"
             TabItem newTabItem = new TabItem()
             {
                 Header = "Shader Set 2",
@@ -305,7 +305,6 @@ namespace GLSL_Editor
                 VerticalAlignment = VerticalAlignment.Bottom
             };
 
-            //------In side objs
             Grid grid = new Grid()
             {
                 Background = subBrush
@@ -321,7 +320,7 @@ namespace GLSL_Editor
 
             TabItem tItem1 = GenerateShaderTabItem("Vertex Shader");
             TabItem tItem2 = GenerateShaderTabItem("Fragment Shader");
-            //adding text box to it
+
             Grid insideGrid1 = GenerateInsideGrid();
             Grid insideGrid2 = GenerateInsideGrid();
 
@@ -342,8 +341,12 @@ namespace GLSL_Editor
 
             scViewer1.Content = acVerTextBox;
             scViewer2.Content = acFragTextBox;
+
             RichTextBox lineNumberTextBox1 = GenerateLineNumberTextBox();
             RichTextBox lineNumberTextBox2 = GenerateLineNumberTextBox();
+
+            lineNumberTextBox1.Document = new FlowDocument() { LineHeight = 3, PagePadding = new Thickness(0) };
+            lineNumberTextBox2.Document = new FlowDocument() { LineHeight = 3, PagePadding = new Thickness(0) };
 
             insideGrid1.Children.Add(lineNumberTextBox1);
             insideGrid1.Children.Add(scViewer1);
@@ -367,7 +370,7 @@ namespace GLSL_Editor
             shaderSetTabControl.Items.Remove(addShaderSetTabIncItem);
             shaderSetTabControl.Items.Add(newTabItem);
             shaderSetTabControl.Items.Add(temp);
-        }       
+        }
 
         private TabItem GenerateShaderTabItem(string tabItemHeader)
         {
@@ -416,8 +419,6 @@ namespace GLSL_Editor
 
         private RichTextBox GenerateShaderEditorTextBox()
         {
-            //<RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="{StaticResource subBrush}" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp"
-            //FontFamily ="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded" IsUndoEnabled="True" UndoLimit="100">
             return new RichTextBox()
             {
                 AcceptsTab = true,
