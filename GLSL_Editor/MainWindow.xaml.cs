@@ -16,6 +16,8 @@ namespace GLSL_Editor
 {
     public partial class MainWindow : Window
     {
+        //There will always be one additional shader set tab, inside it will be a button to add a new shader set
+
         string vertexShaderSaveLocation, fragmentShaderSaveLocation;
         string defaultVertexSaveType = "(.vs)|*.vs";
         string defaultFragmentSaveType = "(.fs)|*.fs";
