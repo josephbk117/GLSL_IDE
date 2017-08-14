@@ -111,7 +111,7 @@
                                     </FlowDocument>
                                 </RichTextBox>
                                 <ScrollViewer x:Name="vertexScrollBar" ScrollChanged="ScrollViewer_ScrollChanged">
-                                    <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="{StaticResource subBrush}" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded" IsUndoEnabled="True" UndoLimit="100">
+                                    <RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="{StaticResource subBrush}" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp" FontFamily="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded">
                                         <FlowDocument LineHeight="3" PagePadding="0">
                                             <Paragraph Background="{StaticResource bgBrush}">
                                                 <Run Text="# version 140" Foreground="{StaticResource baseTextBrush}"/>

@@ -285,6 +285,91 @@ namespace GLSL_Editor
                 Height = 27,
                 VerticalAlignment = VerticalAlignment.Bottom
             };
+
+            //------In side objs
+            Grid grid = new Grid()
+            {
+                Background = subBrush
+            };
+            TabControl tabCntrl = new TabControl()
+            {
+                BorderThickness = new Thickness(0),
+                HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                VerticalContentAlignment = VerticalAlignment.Stretch,
+                Background = null,
+                Foreground = null
+            };
+
+            TabItem tItem1 = new TabItem()
+            {
+                Header = "Vertex Shader",
+                Background = mainBrush,
+                BorderBrush = null,
+                Foreground = tertBrush,
+                Margin = new Thickness(35, 0, -40, 0)
+            };
+            //adding text box to it
+
+            Grid insideGrid = new Grid()
+            {
+                Background = new SolidColorBrush(Color.FromArgb(255, 100, 100, 100)),
+                Margin = new Thickness(-2, 0, 0, -3)
+            };
+            RichTextBox lineNumTextBox = new RichTextBox()
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                IsReadOnly = true,
+                Width = 37,
+                FontFamily = new FontFamily("consolas"),
+                FontSize = 14,
+                Background = mainBrush,
+                Foreground = tertBrush,
+                BorderBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255))
+            };
+
+            ScrollViewer scViewer = new ScrollViewer();
+            scViewer.ScrollChanged += ScrollViewer_ScrollChanged;
+            //<RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="{StaticResource subBrush}" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp"
+            //FontFamily ="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded" IsUndoEnabled="True" UndoLimit="100">
+            RichTextBox acVerTextBox = new RichTextBox()
+            {
+                AcceptsTab = true,
+                Margin = new Thickness(37,0,0,0),
+                Background = subBrush,
+                FontFamily = new FontFamily("consolas"),
+                FontSize = 14,
+                BorderBrush = new SolidColorBrush(Color.FromRgb(255,255,255)),
+                IsUndoEnabled = false
+            };
+            acVerTextBox.KeyUp += TextBox_keyUp;
+            acVerTextBox.Loaded += RichTextbox_OnLoaded;
+            FlowDocument fDoc = new FlowDocument()
+            {
+                LineHeight = 3,
+                PagePadding = new Thickness(0)
+            };
+
+            Paragraph para = new Paragraph(new Run("# version 140"))
+            {
+                Foreground = subBrush,
+                Background = mainBrush
+            };
+            fDoc.Blocks.Add(para);
+            
+
+            acVerTextBox.Document = fDoc;
+            scViewer.Content = acVerTextBox;
+
+            insideGrid.Children.Add(lineNumTextBox);
+            insideGrid.Children.Add(scViewer);
+            tItem1.Content = insideGrid;
+
+
+
+            tabCntrl.Items.Add(tItem1);
+            grid.Children.Add(tabCntrl);
+            newTabItem.Content = grid;
+            //--end inside objs
             TabItem temp = addShaderSetTabIncItem;
             shaderSetTabControl.Items.Remove(addShaderSetTabIncItem);
             shaderSetTabControl.Items.Add(newTabItem);
