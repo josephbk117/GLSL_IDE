@@ -34,11 +34,20 @@
         </Grid>
         <!--- THE MODAL WINDOW SHOW SECTION-->
         <Grid Margin="0" Background="#66000000" Name="coverGrid" Visibility="Hidden" Panel.ZIndex="6">
+            
             <Grid Width="350" Height="150" Background="#7F000000" Name="saveAndIdeErrorGrid" Visibility="Hidden">
                 <Label Name="saveAndIdeErrorGrid_Toplabel" Content="Vertex/Fragment shader saved" Margin="0,0,0,115" HorizontalContentAlignment="Center" FontSize="13" Foreground="White"/>
                 <Label Name="saveAndIdeErrorGrid_SubLabel" Content="safe file name" Margin="0,30,0,90" HorizontalContentAlignment="Center" FontSize="12" Foreground="White"/>
                 <Rectangle Margin="90,100,90,10" Fill="#4CFFFFFF"/>
                 <Label Name ="saveAndIdeErrorGrid_Buttonlabel" Content="Text" Margin="90,100,90,10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" MouseLeftButtonUp="ModalWindowButton_OnMouseUp"/>
+            </Grid>
+
+            <Grid Name="addShaderSetGrid" Width="350" Height="150" Background="#7F000000" Visibility="Hidden">
+                <Label Content="Shader Set Name :" Height="35" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="18" Foreground="White" Background="#4CFFFFFF"/>
+
+                <Rectangle Margin="90,100,90,10" Fill="#4CFFFFFF" MouseLeftButtonDown="GenericButton_OnMouseDown" MouseLeftButtonUp="AddShaderText_OnMouseUp"/>
+                <Label Content="Add Shader Set" Margin="90,100,90,10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" IsHitTestVisible="False"/>
+                <TextBox Name="shaderSetText" Height="23" Margin="50,60,50,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
             </Grid>
 
             <Grid Width="580" Height="400" Background="#7F000000" Name="optionsGrid" Visibility="Hidden">

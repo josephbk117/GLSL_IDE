@@ -33,7 +33,7 @@ namespace GLSL_Editor
         SolidColorBrush tertBrush;
 
         List<TextEditorTypeAndScrollHelper> textBoxCollection;
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -120,7 +120,6 @@ namespace GLSL_Editor
                     var match2 = typesRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
                     var match3 = miscRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
                     var match4 = shaderSpecificRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
-
                     //Comments
                     if (match.Length > 0)
                     {
@@ -296,9 +295,15 @@ namespace GLSL_Editor
 
         private void ShaderSetAdd_OnMouseLeftUp(object sender, MouseButtonEventArgs e)
         {
+            coverGrid.Visibility = Visibility.Visible;
+            addShaderSetGrid.Visibility = Visibility.Visible;
+        }
+
+        private void AddShaderSetToTabs(string shaderSetName)
+        {
             TabItem newTabItem = new TabItem()
             {
-                Header = "Shader Set 2",
+                Header = shaderSetName,
                 Margin = new Thickness(-2, 0, 1, -5),
                 Foreground = tertBrush,
                 Height = 27,
@@ -446,11 +451,22 @@ namespace GLSL_Editor
             };
         }
 
+        private void AddShaderText_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine("YAYOPA");
+            if (shaderSetText.Text.Length < 1)
+                return;
+            Console.WriteLine("YAYA");
+            AddShaderSetToTabs(shaderSetText.Text);
+            coverGrid.Visibility = Visibility.Hidden;
+        }
+
         private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             coverGrid.Visibility = Visibility.Visible;
             optionsGrid.Visibility = Visibility.Visible;
             saveAndIdeErrorGrid.Visibility = Visibility.Hidden;
+            addShaderSetGrid.Visibility = Visibility.Hidden;
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
         }
 
