@@ -300,49 +300,83 @@ namespace GLSL_Editor
                 Foreground = null
             };
 
-            TabItem tItem1 = new TabItem()
+            TabItem tItem1 = GenerateShaderTabItem("Vertex Shader");
+            TabItem tItem2 = GenerateShaderTabItem("Fragment Shader");
+            //adding text box to it
+            Grid insideGrid1 = GenerateInsideGrid();
+            Grid insideGrid2 = GenerateInsideGrid();
+
+            ScrollViewer scViewer1 = GenerateScrollViewer();
+            ScrollViewer scViewer2 = GenerateScrollViewer();
+
+            RichTextBox acVerTextBox = GenerateShaderEditorTextBox();
+            RichTextBox acFragTextBox = GenerateShaderEditorTextBox();
+
+            acVerTextBox.KeyUp += TextBox_keyUp;
+            acVerTextBox.Loaded += RichTextbox_OnLoaded;
+
+            acFragTextBox.KeyUp += TextBox_keyUp;
+            acFragTextBox.Loaded += RichTextbox_OnLoaded;
+
+            acVerTextBox.Document = GenerateFlowDoc();
+            acFragTextBox.Document = GenerateFlowDoc();
+
+            scViewer1.Content = acVerTextBox;
+            scViewer2.Content = acFragTextBox;
+            RichTextBox lineNumberTextBox1 = GenerateLineNumberTextBox();
+            RichTextBox lineNumberTextBox2 = GenerateLineNumberTextBox();
+
+            insideGrid1.Children.Add(lineNumberTextBox1);
+            insideGrid1.Children.Add(scViewer1);
+
+            insideGrid2.Children.Add(lineNumberTextBox2);
+            insideGrid2.Children.Add(scViewer2);
+
+            tItem1.Content = insideGrid1;
+            tItem2.Content = insideGrid2;
+
+            tabCntrl.Items.Add(tItem1);
+            tabCntrl.Items.Add(tItem2);
+
+            grid.Children.Add(tabCntrl);
+            newTabItem.Content = grid;
+            //--end inside objs
+            TabItem temp = addShaderSetTabIncItem;
+            shaderSetTabControl.Items.Remove(addShaderSetTabIncItem);
+            shaderSetTabControl.Items.Add(newTabItem);
+            shaderSetTabControl.Items.Add(temp);
+        }       
+
+        private TabItem GenerateShaderTabItem(string tabItemHeader)
+        {
+            return new TabItem()
             {
-                Header = "Vertex Shader",
+                Header = tabItemHeader,
                 Background = mainBrush,
                 BorderBrush = null,
                 Foreground = tertBrush,
                 Margin = new Thickness(35, 0, -40, 0)
             };
-            //adding text box to it
+        }
 
-            Grid insideGrid = new Grid()
+        private static Grid GenerateInsideGrid()
+        {
+            return new Grid()
             {
                 Background = new SolidColorBrush(Color.FromArgb(255, 100, 100, 100)),
                 Margin = new Thickness(-2, 0, 0, -3)
             };
-            RichTextBox lineNumTextBox = new RichTextBox()
-            {
-                HorizontalAlignment = HorizontalAlignment.Left,
-                IsReadOnly = true,
-                Width = 37,
-                FontFamily = new FontFamily("consolas"),
-                FontSize = 14,
-                Background = mainBrush,
-                Foreground = tertBrush,
-                BorderBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255))
-            };
+        }
 
+        private ScrollViewer GenerateScrollViewer()
+        {
             ScrollViewer scViewer = new ScrollViewer();
             scViewer.ScrollChanged += ScrollViewer_ScrollChanged;
-            //<RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="{StaticResource subBrush}" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp"
-            //FontFamily ="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded" IsUndoEnabled="True" UndoLimit="100">
-            RichTextBox acVerTextBox = new RichTextBox()
-            {
-                AcceptsTab = true,
-                Margin = new Thickness(37,0,0,0),
-                Background = subBrush,
-                FontFamily = new FontFamily("consolas"),
-                FontSize = 14,
-                BorderBrush = new SolidColorBrush(Color.FromRgb(255,255,255)),
-                IsUndoEnabled = false
-            };
-            acVerTextBox.KeyUp += TextBox_keyUp;
-            acVerTextBox.Loaded += RichTextbox_OnLoaded;
+            return scViewer;
+        }
+
+        private FlowDocument GenerateFlowDoc()
+        {
             FlowDocument fDoc = new FlowDocument()
             {
                 LineHeight = 3,
@@ -355,25 +389,38 @@ namespace GLSL_Editor
                 Background = mainBrush
             };
             fDoc.Blocks.Add(para);
-            
+            return fDoc;
+        }
 
-            acVerTextBox.Document = fDoc;
-            scViewer.Content = acVerTextBox;
+        private RichTextBox GenerateShaderEditorTextBox()
+        {
+            //<RichTextBox AcceptsTab="True" Margin="37,0,0,0" Background="{StaticResource subBrush}" x:Name="glslVertexTextbox" KeyUp="TextBox_keyUp"
+            //FontFamily ="Consolas" FontSize="14" BorderBrush="White" Loaded="RichTextbox_OnLoaded" IsUndoEnabled="True" UndoLimit="100">
+            return new RichTextBox()
+            {
+                AcceptsTab = true,
+                Margin = new Thickness(37, 0, 0, 0),
+                Background = subBrush,
+                FontFamily = new FontFamily("consolas"),
+                FontSize = 14,
+                BorderBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255)),
+                IsUndoEnabled = false
+            };
+        }
 
-            insideGrid.Children.Add(lineNumTextBox);
-            insideGrid.Children.Add(scViewer);
-            tItem1.Content = insideGrid;
-
-
-
-            tabCntrl.Items.Add(tItem1);
-            grid.Children.Add(tabCntrl);
-            newTabItem.Content = grid;
-            //--end inside objs
-            TabItem temp = addShaderSetTabIncItem;
-            shaderSetTabControl.Items.Remove(addShaderSetTabIncItem);
-            shaderSetTabControl.Items.Add(newTabItem);
-            shaderSetTabControl.Items.Add(temp);
+        private RichTextBox GenerateLineNumberTextBox()
+        {
+            return new RichTextBox()
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                IsReadOnly = true,
+                Width = 37,
+                FontFamily = new FontFamily("consolas"),
+                FontSize = 14,
+                Background = mainBrush,
+                Foreground = tertBrush,
+                BorderBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255))
+            };
         }
 
         private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
