@@ -273,6 +273,21 @@ namespace GLSL_Editor
             catch { }
         }
 
+        private void ShaderSetAdd_OnMouseLeftUp(object sender, MouseButtonEventArgs e)
+        {
+            //Create new tab item, set header name,margins
+            //Header="Add Shader Set" BorderBrush="{x:Null}" Margin="-2,0,1,-11" Foreground="{StaticResource tertBrush}" Height="27" VerticalAlignment="Bottom"
+            TabItem newTabItem = new TabItem()
+            {
+                Header = "Shader Set 2",
+                Margin = new Thickness(-2, 0, 1, -31),
+                Foreground = tertBrush,
+                Height = 27,
+                VerticalAlignment = VerticalAlignment.Bottom
+            };
+            shaderSetTabControl.Items.Add(newTabItem);
+        }
+
         private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             coverGrid.Visibility = Visibility.Visible;
@@ -283,20 +298,20 @@ namespace GLSL_Editor
 
         private void Colour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (mainBrush != null)            
-                mainBrush.Color = Color.FromRgb((byte)bgColour_R.Value, (byte)bgColour_G.Value, (byte)bgColour_B.Value);            
+            if (mainBrush != null)
+                mainBrush.Color = Color.FromRgb((byte)bgColour_R.Value, (byte)bgColour_G.Value, (byte)bgColour_B.Value);
         }
 
         private void SubColour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (subBrush != null)            
-                subBrush.Color = Color.FromRgb((byte)subColour_R.Value, (byte)subColour_G.Value, (byte)subColour_B.Value);            
+            if (subBrush != null)
+                subBrush.Color = Color.FromRgb((byte)subColour_R.Value, (byte)subColour_G.Value, (byte)subColour_B.Value);
         }
 
         private void TertColour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (tertBrush != null)            
-                tertBrush.Color = Color.FromRgb((byte)tertColour_R.Value, (byte)tertColour_G.Value, (byte)tertColour_B.Value);            
+            if (tertBrush != null)
+                tertBrush.Color = Color.FromRgb((byte)tertColour_R.Value, (byte)tertColour_G.Value, (byte)tertColour_B.Value);
         }
 
         private void ToolBar_RunButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
