@@ -452,11 +452,9 @@ namespace GLSL_Editor
         }
 
         private void AddShaderText_OnMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Console.WriteLine("YAYOPA");
+        {            
             if (shaderSetText.Text.Length < 1)
                 return;
-            Console.WriteLine("YAYA");
             AddShaderSetToTabs(shaderSetText.Text);
             coverGrid.Visibility = Visibility.Hidden;
         }
