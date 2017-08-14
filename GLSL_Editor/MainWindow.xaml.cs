@@ -280,12 +280,15 @@ namespace GLSL_Editor
             TabItem newTabItem = new TabItem()
             {
                 Header = "Shader Set 2",
-                Margin = new Thickness(-2, 0, 1, -31),
+                Margin = new Thickness(-2, 0, 1, -5),
                 Foreground = tertBrush,
                 Height = 27,
                 VerticalAlignment = VerticalAlignment.Bottom
             };
+            TabItem temp = addShaderSetTabIncItem;
+            shaderSetTabControl.Items.Remove(addShaderSetTabIncItem);
             shaderSetTabControl.Items.Add(newTabItem);
+            shaderSetTabControl.Items.Add(temp);
         }
 
         private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
