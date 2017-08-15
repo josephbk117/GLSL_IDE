@@ -380,6 +380,7 @@ namespace GLSL_Editor
             shaderSetTabControl.Items.Remove(addShaderSetTabIncItem);
             shaderSetTabControl.Items.Add(newTabItem);
             shaderSetTabControl.Items.Add(temp);
+            shaderSetTabControl.SelectedIndex = shaderSetTabControl.Items.Count - 2;
         }
 
         private TabItem GenerateShaderTabItem(string tabItemHeader)
