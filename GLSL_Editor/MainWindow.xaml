@@ -110,7 +110,7 @@
             <TabItem Header="Shader set 1" BorderBrush="{x:Null}" Margin="-2,-3,1,-5" Foreground="{StaticResource tertBrush}">
                 <Grid Background="{StaticResource subBrush}">
                     <TabControl BorderThickness="0" x:Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
-                        <TabItem Header="Vertex Shader" Background="{StaticResource bgBrush}" BorderBrush="{x:Null}" Foreground="{StaticResource tertBrush}" Margin="35,0,-40,0">
+                        <TabItem Name="vertexShaderTabItem" Header="Vertex Shader" Background="{StaticResource bgBrush}" BorderBrush="{x:Null}" Foreground="{StaticResource tertBrush}" Margin="35,0,-40,0" GotFocus="TabItem_OnGotFocus">
                             <Grid Background="#FFE5E5E5" Margin="-2,0,0,-3" >
                                 <RichTextBox x:Name="lineNumberVertex_TextBox" HorizontalAlignment="Left" IsReadOnly="True" Width="37" FontFamily="consolas" FontSize="14" Background="{StaticResource bgBrush}" Foreground="{StaticResource tertBrush}" BorderBrush="White">
                                     <FlowDocument x:Name="lineNumberVertex_FlowDoc" LineHeight="3" PagePadding="0">
@@ -139,7 +139,7 @@
                                 </ScrollViewer>
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Fragment Shader" BorderBrush="{x:Null}" Background="{StaticResource bgBrush}" Foreground="{StaticResource tertBrush}" Margin="44,0,-44,0">
+                        <TabItem Header="Fragment Shader" BorderBrush="{x:Null}" Background="{StaticResource bgBrush}" Foreground="{StaticResource tertBrush}" Margin="44,0,-44,0" GotFocus="TabItem_OnGotFocus">
                             <Grid Background="#FFE5E5E5" Margin="-2,0,0,-3">
                                 <RichTextBox x:Name="lineNumberFragment_TextBox" HorizontalAlignment="Left" IsReadOnly="True" Width="37" FontFamily="consolas" FontSize="14" Background="{StaticResource bgBrush}" Foreground="{StaticResource tertBrush}" BorderBrush="White">
                                     <FlowDocument x:Name="lineNumberFrag_FlowDoc" LineHeight="3" PagePadding="0">

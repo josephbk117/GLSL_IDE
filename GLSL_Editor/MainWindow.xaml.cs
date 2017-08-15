@@ -33,7 +33,8 @@ namespace GLSL_Editor
         SolidColorBrush tertBrush;
 
         List<TextEditorTypeAndScrollHelper> textBoxCollection;
-        
+        TabItem currentOpenTabItem;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -54,13 +55,15 @@ namespace GLSL_Editor
                 new TextEditorTypeAndScrollHelper(TextEditorTypeAndScrollHelper.ShaderType.VERTEX, glslVertexTextbox, lineNumberVertex_TextBox),
                 new TextEditorTypeAndScrollHelper(TextEditorTypeAndScrollHelper.ShaderType.FRAGMENT, glslFragmentTextbox, lineNumberFragment_TextBox)
             };
+
+            currentOpenTabItem = vertexShaderTabItem;
         }
         private void TextBox_keyUp(object sender, KeyEventArgs e)
         {
-            string sval = ((TabItem)tabControl.SelectedItem).Header.ToString();
+            string sval = currentOpenTabItem.Header.ToString();
             if (!sval.EndsWith("*"))
             {
-                ((TabItem)tabControl.SelectedItem).Header = ((TabItem)tabControl.SelectedItem).Header + "*";
+                currentOpenTabItem.Header = currentOpenTabItem.Header + "*";
             }
             RichTextBox currentTextBox = (RichTextBox)sender;
             SetUpLineAndFormat(currentTextBox);
@@ -325,6 +328,8 @@ namespace GLSL_Editor
 
             TabItem tItem1 = GenerateShaderTabItem("Vertex Shader");
             TabItem tItem2 = GenerateShaderTabItem("Fragment Shader");
+            tItem1.GotFocus += TabItem_OnGotFocus;
+            tItem2.GotFocus += TabItem_OnGotFocus;
 
             Grid insideGrid1 = GenerateInsideGrid();
             Grid insideGrid2 = GenerateInsideGrid();
@@ -452,11 +457,16 @@ namespace GLSL_Editor
         }
 
         private void AddShaderText_OnMouseUp(object sender, MouseButtonEventArgs e)
-        {            
+        {
             if (shaderSetText.Text.Length < 1)
                 return;
             AddShaderSetToTabs(shaderSetText.Text);
             coverGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void TabItem_OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            currentOpenTabItem = sender as TabItem;
         }
 
         private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
