@@ -528,7 +528,8 @@ namespace GLSL_Editor
 
         private void AutoCompleteListBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-             //textBox.Text.Insert(textBox.CaretIndex, "<new text>");
+            currentTextBox.CaretPosition.Paragraph.Inlines.Add(new Run(choiceList.SelectedItem.ToString()) { Foreground = baseTextColour });
+            choiceList.Visibility = Visibility.Hidden;
         }
 
         private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
