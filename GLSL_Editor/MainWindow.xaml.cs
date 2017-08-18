@@ -530,8 +530,13 @@ namespace GLSL_Editor
         {
             Inline tempText = currentTextBox.CaretPosition.Paragraph.Inlines.LastInline;
             TextRange range = new TextRange(tempText.ElementStart, tempText.ElementEnd);
-            range.Text = range.Text.Remove(range.Text.LastIndexOf(" "));
-            currentTextBox.CaretPosition.Paragraph.Inlines.Add(new Run(" " + choiceList.SelectedItem.ToString())
+            string textToAdd = choiceList.SelectedItem.ToString();
+            if (range.Text.Contains(" "))
+            {
+                range.Text = range.Text.Remove(range.Text.LastIndexOf(" "));
+                textToAdd = " " + textToAdd;
+            }
+            currentTextBox.CaretPosition.Paragraph.Inlines.Add(new Run(textToAdd)
             {
                 Foreground = baseTextColour
             });
