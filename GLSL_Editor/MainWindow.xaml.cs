@@ -62,9 +62,7 @@ namespace GLSL_Editor
         {
             string sval = currentOpenTabItem.Header.ToString();
             if (!sval.EndsWith("*"))
-            {
                 currentOpenTabItem.Header = currentOpenTabItem.Header + "*";
-            }
             RichTextBox currentTextBox = (RichTextBox)sender;
             SetUpLineAndFormat(currentTextBox);
         }
@@ -272,6 +270,7 @@ namespace GLSL_Editor
         {
             coverGrid.Visibility = Visibility.Visible;
             optionsGrid.Visibility = Visibility.Hidden;
+            addShaderSetGrid.Visibility = Visibility.Hidden;
             saveAndIdeErrorGrid.Visibility = Visibility.Visible;
             saveAndIdeErrorGrid_Toplabel.Content = topLabelText;
             saveAndIdeErrorGrid_SubLabel.Content = subLabelText;
@@ -299,6 +298,8 @@ namespace GLSL_Editor
         private void ShaderSetAdd_OnMouseLeftUp(object sender, MouseButtonEventArgs e)
         {
             coverGrid.Visibility = Visibility.Visible;
+            optionsGrid.Visibility = Visibility.Hidden;
+            saveAndIdeErrorGrid.Visibility = Visibility.Hidden;
             addShaderSetGrid.Visibility = Visibility.Visible;
         }
 
