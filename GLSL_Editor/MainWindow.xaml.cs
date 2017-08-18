@@ -405,6 +405,9 @@ namespace GLSL_Editor
             acVerTextBox.Document = GenerateFlowDoc();
             acFragTextBox.Document = GenerateFlowDoc();
 
+            acVerTextBox.PreviewMouseDown += RichTextbox_OnMouseDown;
+            acFragTextBox.PreviewMouseDown += RichTextbox_OnMouseDown;
+
             scViewer1.Content = acVerTextBox;
             scViewer2.Content = acFragTextBox;
 
@@ -540,6 +543,11 @@ namespace GLSL_Editor
             {
                 Foreground = baseTextColour
             });
+            choiceList.Visibility = Visibility.Hidden;
+        }
+
+        private void RichTextbox_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
             choiceList.Visibility = Visibility.Hidden;
         }
 
