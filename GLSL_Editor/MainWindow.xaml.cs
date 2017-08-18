@@ -528,7 +528,13 @@ namespace GLSL_Editor
 
         private void AutoCompleteListBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            currentTextBox.CaretPosition.Paragraph.Inlines.Add(new Run(choiceList.SelectedItem.ToString()) { Foreground = baseTextColour });
+            Inline tempText = currentTextBox.CaretPosition.Paragraph.Inlines.LastInline;
+            TextRange range = new TextRange(tempText.ElementStart, tempText.ElementEnd);
+            range.Text = range.Text.Remove(range.Text.LastIndexOf(" "));
+            currentTextBox.CaretPosition.Paragraph.Inlines.Add(new Run(" " + choiceList.SelectedItem.ToString())
+            {
+                Foreground = baseTextColour
+            });
             choiceList.Visibility = Visibility.Hidden;
         }
 
