@@ -34,7 +34,7 @@
         </Grid>
         <!--- THE MODAL WINDOW SHOW SECTION-->
         <Grid Margin="0" Background="#66000000" Name="coverGrid" Visibility="Hidden" Panel.ZIndex="6">
-            
+
             <Grid Width="350" Height="150" Background="#7F000000" Name="saveAndIdeErrorGrid" Visibility="Hidden">
                 <Label Name="saveAndIdeErrorGrid_Toplabel" Content="Vertex/Fragment shader saved" Margin="0,0,0,115" HorizontalContentAlignment="Center" FontSize="13" Foreground="White"/>
                 <Label Name="saveAndIdeErrorGrid_SubLabel" Content="safe file name" Margin="0,30,0,90" HorizontalContentAlignment="Center" FontSize="12" Foreground="White"/>
@@ -107,9 +107,7 @@
             </Grid>
         </Grid>
         <Canvas Name="canvas" Margin="135,62,23,136" Panel.ZIndex="10">
-            <ListBox x:Name="choiceList" Width="100" Height="100" Visibility="Visible">
-
-            </ListBox>
+            <ListBox x:Name="choiceList" Width="250" Height="100" Visibility="Hidden" Background="#4C000000" Foreground="White" BorderBrush="White"/>
         </Canvas>
         <TabControl Name="shaderSetTabControl" Margin="0,35,0,136" TabStripPlacement="Left" BorderBrush="White" BorderThickness="0">
             <TabItem Header="Shader set 1" BorderBrush="{x:Null}" Margin="-2,-3,1,-5" Foreground="{StaticResource tertBrush}">

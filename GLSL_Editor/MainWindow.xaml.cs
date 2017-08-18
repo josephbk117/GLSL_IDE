@@ -74,7 +74,7 @@ namespace GLSL_Editor
                 choiceList.Items.Clear();
 
                 Regex reg = new Regex(@"\w+");
-                string richText = new TextRange(currentTextBox.Document.ContentStart, currentTextBox.Document.ContentEnd).Text;
+                string richText = new TextRange(currentTextBox.Document.ContentStart, currentTextBox.CaretPosition).Text;
                 // last word before current cursor position
                 string lastWord;
                 try
@@ -103,7 +103,6 @@ namespace GLSL_Editor
                 {
                     choiceList.Visibility = Visibility.Visible;
                     Rect caret = currentTextBox.CaretPosition.GetCharacterRect(LogicalDirection.Forward);
-                    Console.WriteLine(currentTextBox.TranslatePoint(new Point((int)caret.X, (int)caret.Y), canvas).X + " ," + currentTextBox.TranslatePoint(new Point((int)caret.X, (int)caret.Y), canvas).Y);
                     Canvas.SetTop(choiceList, currentTextBox.TranslatePoint(new Point((int)caret.X, (int)caret.Y + (int)caret.Height), canvas).Y);
                     Canvas.SetLeft(choiceList, currentTextBox.TranslatePoint(new Point((int)caret.X, (int)caret.Y + (int)caret.Height), canvas).X);
                 }
