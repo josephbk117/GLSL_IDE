@@ -65,51 +65,51 @@ namespace GLSL_Editor
                 currentOpenTabItem.Header = currentOpenTabItem.Header + "*";
             RichTextBox currentTextBox = (RichTextBox)sender;
             SetUpLineAndFormat(currentTextBox);
-
             //__________ List Box Setup ___________
-
             if (e.Key != Key.Space || e.Key != Key.LeftShift)
-            {
-                choiceList.Visibility = Visibility.Hidden;
-                choiceList.Items.Clear();
-
-                Regex reg = new Regex(@"\w+");
-                string richText = new TextRange(currentTextBox.Document.ContentStart, currentTextBox.CaretPosition).Text;
-                // last word before current cursor position
-                string lastWord;
-                try
-                {
-                    lastWord = richText.Substring(richText.LastIndexOf(' '), richText.Length - richText.LastIndexOf(' ')).Trim();
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    lastWord = "";
-                }
-
-                foreach (Match match in reg.Matches(richText))
-                {
-                    if (lastWord != "")
-                    {
-                        if (match.Value.StartsWith(lastWord))
-                        {
-                            if (!choiceList.Items.Contains(match.Value))
-                                choiceList.Items.Add(match.Value);
-                        }
-                    }
-                    else
-                        choiceList.Items.Clear();
-                }
-                if (choiceList.Items.Count > 1)
-                {
-                    choiceList.Visibility = Visibility.Visible;
-                    Rect caret = currentTextBox.CaretPosition.GetCharacterRect(LogicalDirection.Forward);
-                    Canvas.SetTop(choiceList, currentTextBox.TranslatePoint(new Point((int)caret.X, (int)caret.Y + (int)caret.Height), canvas).Y);
-                    Canvas.SetLeft(choiceList, currentTextBox.TranslatePoint(new Point((int)caret.X, (int)caret.Y + (int)caret.Height), canvas).X);
-                }
-            }
+                SetUpAutoCompletionListBox(currentTextBox);
             else
             {
                 choiceList.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void SetUpAutoCompletionListBox(RichTextBox currentTextBox)
+        {
+            choiceList.Visibility = Visibility.Hidden;
+            choiceList.Items.Clear();
+
+            Regex reg = new Regex(@"\w+");
+            string richText = new TextRange(currentTextBox.Document.ContentStart, currentTextBox.CaretPosition).Text;
+            string lastWordBeforeCurrentCursorPosition;
+            try
+            {
+                lastWordBeforeCurrentCursorPosition = richText.Substring(richText.LastIndexOf(' '), richText.Length - richText.LastIndexOf(' ')).Trim();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                lastWordBeforeCurrentCursorPosition = "";
+            }
+
+            foreach (Match match in reg.Matches(richText))
+            {
+                if (lastWordBeforeCurrentCursorPosition != "")
+                {
+                    if (match.Value.StartsWith(lastWordBeforeCurrentCursorPosition))
+                    {
+                        if (!choiceList.Items.Contains(match.Value))
+                            choiceList.Items.Add(match.Value);
+                    }
+                }
+                else
+                    choiceList.Items.Clear();
+            }
+            if (choiceList.Items.Count > 1)
+            {
+                choiceList.Visibility = Visibility.Visible;
+                Rect caret = currentTextBox.CaretPosition.GetCharacterRect(LogicalDirection.Forward);
+                Canvas.SetTop(choiceList, currentTextBox.TranslatePoint(new Point((int)caret.X, (int)caret.Y + (int)caret.Height), canvas).Y);
+                Canvas.SetLeft(choiceList, currentTextBox.TranslatePoint(new Point((int)caret.X, (int)caret.Y + (int)caret.Height), canvas).X);
             }
         }
 
