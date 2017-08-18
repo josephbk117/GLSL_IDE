@@ -106,6 +106,11 @@
                 <Label Content="Misc" Background="#4CFFFFFF" HorizontalAlignment="Left" Margin="440,256,0,0" VerticalAlignment="Top" Width="130" Foreground="White" HorizontalContentAlignment="Center"/>
             </Grid>
         </Grid>
+        <Canvas Name="canvas" Margin="135,62,23,136" Panel.ZIndex="10">
+            <ListBox x:Name="choiceList" Width="100" Height="100" Visibility="Visible">
+
+            </ListBox>
+        </Canvas>
         <TabControl Name="shaderSetTabControl" Margin="0,35,0,136" TabStripPlacement="Left" BorderBrush="White" BorderThickness="0">
             <TabItem Header="Shader set 1" BorderBrush="{x:Null}" Margin="-2,-3,1,-5" Foreground="{StaticResource tertBrush}">
                 <Grid Background="{StaticResource subBrush}">
