@@ -34,6 +34,12 @@ namespace GLSL_Editor
 
         List<TextEditorTypeAndScrollHelper> textBoxCollection;
         TabItem currentOpenTabItem;
+        RichTextBox currentTextBox;
+
+        readonly string[] glslKeywords = new string[] { "in", "out", "inout", "vec1", "vec2", "vec3", "vec4", "mat2", "mat3", "mat4", "float", "int", "uint",
+            "void", "double", "bool", "sampler1D", "sampler2D", "sampler3D", "struct", "uniform", "const",
+            "true", "false", "gl_Position", "gl_PointSize", "gl_VertexID", "gl_InstanceID",
+            "gl_FragCoord", "gl_FrontFacing", "gl_FragDepth" };
 
         public MainWindow()
         {
@@ -63,7 +69,7 @@ namespace GLSL_Editor
             string sval = currentOpenTabItem.Header.ToString();
             if (!sval.EndsWith("*"))
                 currentOpenTabItem.Header = currentOpenTabItem.Header + "*";
-            RichTextBox currentTextBox = (RichTextBox)sender;
+            currentTextBox = (RichTextBox)sender;
             SetUpLineAndFormat(currentTextBox);
             //__________ List Box Setup ___________
             if (e.Key != Key.Space || e.Key != Key.LeftShift)
@@ -102,7 +108,9 @@ namespace GLSL_Editor
                     }
                 }
                 else
+                {
                     choiceList.Items.Clear();
+                }
             }
             if (choiceList.Items.Count > 1)
             {
@@ -164,15 +172,15 @@ namespace GLSL_Editor
             {
                 if (start.GetPointerContext(LogicalDirection.Forward) == TextPointerContext.Text)
                 {
-                    var match = commentRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
+                    var match1 = commentRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
                     var match2 = typesRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
                     var match3 = miscRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
                     var match4 = shaderSpecificRegex.Match(start.GetTextInRun(LogicalDirection.Forward));
                     //Comments
-                    if (match.Length > 0)
+                    if (match1.Length > 0)
                     {
-                        var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward),
-                            start.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Backward));
+                        var textrange = new TextRange(start.GetPositionAtOffset(match1.Index, LogicalDirection.Forward),
+                            start.GetPositionAtOffset(match1.Index + match1.Length, LogicalDirection.Backward));
                         textrange.ApplyPropertyValue(TextElement.ForegroundProperty, commentColour);
                     }
                     //types
@@ -516,6 +524,11 @@ namespace GLSL_Editor
         private void TabItem_OnGotFocus(object sender, RoutedEventArgs e)
         {
             currentOpenTabItem = sender as TabItem;
+        }
+
+        private void AutoCompleteListBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+             //textBox.Text.Insert(textBox.CaretIndex, "<new text>");
         }
 
         private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
