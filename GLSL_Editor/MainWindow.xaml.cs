@@ -217,9 +217,18 @@ namespace GLSL_Editor
 
         private void ToolBar_SaveButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
         {
+            
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
-
-            if (tabControl.SelectedIndex == 0)
+            bool isVertexShader = true;
+            foreach(TextEditorTypeAndScrollHelper helper in textBoxCollection)
+            {
+                if(helper.GetShaderTextBox() == currentTextBox)
+                {
+                    isVertexShader = (helper.GetShaderType() == TextEditorTypeAndScrollHelper.ShaderType.VERTEX) ? true : false;
+                }
+            }
+            
+            if (isVertexShader)
             {
                 if (vertexShaderSaveLocation == string.Empty)
                 {
@@ -232,7 +241,7 @@ namespace GLSL_Editor
                         vertexShaderSaveLocation = sfd.FileName;
                         using (FileStream fs = File.OpenWrite(sfd.FileName))
                         {
-                            TextRange text = new TextRange(glslVertexTextbox.Document.ContentStart, glslVertexTextbox.Document.ContentEnd);
+                            TextRange text = new TextRange(currentTextBox.Document.ContentStart, currentTextBox.Document.ContentEnd);
                             text.Save(fs, DataFormats.Text);
                         }
                         SavedFileModalWindow("Vertex Shader Saved", vertexShaderSaveLocation, "OK");
@@ -244,7 +253,7 @@ namespace GLSL_Editor
                         File.Delete(vertexShaderSaveLocation);
                     using (FileStream fs = File.OpenWrite(vertexShaderSaveLocation))
                     {
-                        TextRange text = new TextRange(glslVertexTextbox.Document.ContentStart, glslVertexTextbox.Document.ContentEnd);
+                        TextRange text = new TextRange(currentTextBox.Document.ContentStart, currentTextBox.Document.ContentEnd);
                         text.Save(fs, DataFormats.Text);
                     }
                 }
@@ -267,7 +276,7 @@ namespace GLSL_Editor
                         fragmentShaderSaveLocation = sfd.FileName;
                         using (FileStream fs = File.OpenWrite(sfd.FileName))
                         {
-                            TextRange text = new TextRange(glslFragmentTextbox.Document.ContentStart, glslFragmentTextbox.Document.ContentEnd);
+                            TextRange text = new TextRange(currentTextBox.Document.ContentStart, currentTextBox.Document.ContentEnd);
                             text.Save(fs, DataFormats.Text);
                         }
                         SavedFileModalWindow("Fragment Shader Saved", fragmentShaderSaveLocation, "OK");
@@ -279,7 +288,7 @@ namespace GLSL_Editor
                         File.Delete(fragmentShaderSaveLocation);
                     using (FileStream fs = File.OpenWrite(fragmentShaderSaveLocation))
                     {
-                        TextRange text = new TextRange(glslFragmentTextbox.Document.ContentStart, glslFragmentTextbox.Document.ContentEnd);
+                        TextRange text = new TextRange(currentTextBox.Document.ContentStart, currentTextBox.Document.ContentEnd);
                         text.Save(fs, DataFormats.Text);
                     }
                 }
