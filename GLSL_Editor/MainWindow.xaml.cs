@@ -217,17 +217,17 @@ namespace GLSL_Editor
 
         private void ToolBar_SaveButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
         {
-            
+
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
             bool isVertexShader = true;
-            foreach(TextEditorTypeAndScrollHelper helper in textBoxCollection)
+            foreach (TextEditorTypeAndScrollHelper helper in textBoxCollection)
             {
-                if(helper.GetShaderTextBox() == currentTextBox)
+                if (helper.GetShaderTextBox() == currentTextBox)
                 {
                     isVertexShader = (helper.GetShaderType() == TextEditorTypeAndScrollHelper.ShaderType.VERTEX) ? true : false;
                 }
             }
-            
+
             if (isVertexShader)
             {
                 if (vertexShaderSaveLocation == string.Empty)
@@ -260,7 +260,8 @@ namespace GLSL_Editor
                 if (vertexShaderSaveLocation.Length > 2)
                 {
                     int len = vertexShaderSaveLocation.Split('\\').Length;
-                    ((TabItem)tabControl.SelectedItem).Header = vertexShaderSaveLocation.Split('\\')[len - 1];
+                    TabItem item = (TabItem)shaderSetTabControl.SelectedItem;
+                    ((TabItem)((TabControl)((Grid)item.Content).Children[0]).SelectedItem).Header = vertexShaderSaveLocation.Split('\\')[len - 1];
                 }
             }
             else
@@ -295,7 +296,9 @@ namespace GLSL_Editor
                 if (fragmentShaderSaveLocation.Length > 2)
                 {
                     int len = fragmentShaderSaveLocation.Split('\\').Length;
-                    ((TabItem)tabControl.SelectedItem).Header = fragmentShaderSaveLocation.Split('\\')[len - 1];
+                    TabItem item = (TabItem)shaderSetTabControl.SelectedItem;
+                    ((TabItem)((TabControl)((Grid)item.Content).Children[0]).SelectedItem).Header = fragmentShaderSaveLocation.Split('\\')[len - 1];
+                    //((TabItem)tabControl.SelectedItem).Header = fragmentShaderSaveLocation.Split('\\')[len - 1];
                 }
             }
         }
