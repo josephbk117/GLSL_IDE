@@ -41,6 +41,8 @@ namespace GLSL_Editor
             "true", "false", "gl_Position", "gl_PointSize", "gl_VertexID", "gl_InstanceID",
             "gl_FragCoord", "gl_FrontFacing", "gl_FragDepth" };
 
+        bool clearDebugWindowOnRun;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -63,6 +65,7 @@ namespace GLSL_Editor
             };
 
             currentOpenTabItem = vertexShaderTabItem;
+            clearDebugWindowOnRun = false;
         }
         private void TextBox_keyUp(object sender, KeyEventArgs e)
         {
@@ -560,6 +563,12 @@ namespace GLSL_Editor
             choiceList.Visibility = Visibility.Hidden;
         }
 
+        private void DebugWindow_ClearOnRunButtonOnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            clearDebugWindowOnRun = !clearDebugWindowOnRun;
+            ((Rectangle)sender).Fill = (clearDebugWindowOnRun)?new SolidColorBrush(Color.FromArgb(100, 255, 255, 255)): new SolidColorBrush(Color.FromArgb((int)(255*20f/100), 255, 255, 255));
+        }
+
         private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             coverGrid.Visibility = Visibility.Visible;
@@ -589,6 +598,9 @@ namespace GLSL_Editor
 
         private void ToolBar_RunButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
         {
+            if (clearDebugWindowOnRun)
+                debugTextBox.Clear();
+
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
             if (vertexShaderSaveLocation != string.Empty && fragmentShaderSaveLocation != string.Empty)
             {
