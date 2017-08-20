@@ -47,15 +47,15 @@
 
                 <Rectangle Margin="90,100,90,10" Fill="#4CFFFFFF" MouseLeftButtonDown="GenericButton_OnMouseDown" MouseLeftButtonUp="AddShaderText_OnMouseUp"/>
                 <Label Content="Add Shader Set" Margin="90,100,90,10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" IsHitTestVisible="False"/>
-                <TextBox Name="shaderSetText" Height="23" Margin="50,60,50,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
+                <TextBox Name="shaderSetText" Height="23" Margin="50,60,50,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White" CaretBrush="White"/>
             </Grid>
 
             <Grid Width="580" Height="400" Background="#7F000000" Name="optionsGrid" Visibility="Hidden">
                 <Label Content="Default vertex shader extension : " Height="27" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="14" HorizontalAlignment="Left" Width="280" Foreground="White"/>
-                <TextBox Name="vertexExtensionText" Height="22" Margin="0,6,107,0" TextWrapping="Wrap" Text=".vs" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
+                <TextBox Name="vertexExtensionText" Height="22" Margin="0,6,107,0" TextWrapping="Wrap" Text=".vs" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White" CaretBrush="White"/>
 
                 <Label Content="Default fragment shader extension : " Height="30" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="14" HorizontalAlignment="Left" Width="280" Margin="0,32,0,0" Foreground="White"/>
-                <TextBox Name="fragmentExtensionText" Height="22" Margin="0,37,107,0" TextWrapping="Wrap" Text=".fs" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White"/>
+                <TextBox Name="fragmentExtensionText" Height="22" Margin="0,37,107,0" TextWrapping="Wrap" Text=".fs" VerticalAlignment="Top" HorizontalAlignment="Right" Width="188" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#4CFFFFFF" Foreground="White" CaretBrush="White"/>
 
                 <Rectangle Name="optionSetButton" Margin="200,0,200,10" Fill="#4CFFFFFF" Height="35" VerticalAlignment="Bottom" MouseLeftButtonUp="ModalWindowButton_OnMouseUp"/>
                 <Label Content="SET" Margin="200,355,200,10" FontSize="20" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsHitTestVisible="False"/>

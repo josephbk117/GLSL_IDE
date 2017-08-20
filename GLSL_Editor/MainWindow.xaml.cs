@@ -298,7 +298,6 @@ namespace GLSL_Editor
                     int len = fragmentShaderSaveLocation.Split('\\').Length;
                     TabItem item = (TabItem)shaderSetTabControl.SelectedItem;
                     ((TabItem)((TabControl)((Grid)item.Content).Children[0]).SelectedItem).Header = fragmentShaderSaveLocation.Split('\\')[len - 1];
-                    //((TabItem)tabControl.SelectedItem).Header = fragmentShaderSaveLocation.Split('\\')[len - 1];
                 }
             }
         }
@@ -313,9 +312,7 @@ namespace GLSL_Editor
             foreach (TextEditorTypeAndScrollHelper helper in textBoxCollection)
             {
                 if (((ScrollViewer)sender).Content == helper.GetShaderTextBox())
-                {
                     helper.GetCorrespondingLineTextBox().ScrollToVerticalOffset(((ScrollViewer)sender).VerticalOffset);
-                }
             }
         }
 
