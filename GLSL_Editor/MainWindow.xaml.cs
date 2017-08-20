@@ -566,7 +566,7 @@ namespace GLSL_Editor
         private void DebugWindow_ClearOnRunButtonOnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
         {
             clearDebugWindowOnRun = !clearDebugWindowOnRun;
-            ((Rectangle)sender).Fill = (clearDebugWindowOnRun)?new SolidColorBrush(Color.FromArgb(100, 255, 255, 255)): new SolidColorBrush(Color.FromArgb((int)(255*20f/100), 255, 255, 255));
+            ((Rectangle)sender).Fill = (clearDebugWindowOnRun) ? new SolidColorBrush(Color.FromArgb(100, 255, 255, 255)) : new SolidColorBrush(Color.FromArgb((int)(255 * 20f / 100), 255, 255, 255));
         }
 
         private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -614,11 +614,14 @@ namespace GLSL_Editor
                 string fragmentLocation = "\"" + fragmentShaderSaveLocation + "\"";
                 process.StartInfo.Arguments = vertexShaderSaveLocation + " " + fragmentShaderSaveLocation;
                 process.Start();
+                string completeLog = "";
                 while (!process.StandardOutput.EndOfStream)
                 {
                     string line = process.StandardOutput.ReadLine();
-                    debugTextBox.Text += line + Environment.NewLine;
+                    completeLog += line + Environment.NewLine;
                 }
+                completeLog = completeLog.Replace(Environment.NewLine + Environment.NewLine, " ");
+                debugTextBox.Text = completeLog;
             }
             else
                 SavedFileModalWindow("Cannot Run Shaders", "Save all shaders in shader set to file, Then Run", "OK");
