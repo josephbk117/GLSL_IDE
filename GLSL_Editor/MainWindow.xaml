@@ -14,24 +14,27 @@
     </Window.Resources>
     <Grid Background="{StaticResource subBrush}">
         <Grid VerticalAlignment="Top" Height="35" Background="{StaticResource bgBrush}">
-            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,0,0" Fill="#33FFFFFF" MouseLeftButtonUp="ToolBar_SaveButton_OnLeftMouseUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
-            <Label Content="SAVE" Width="80" Margin="5,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
+            <Rectangle Stroke="White" StrokeThickness="2" Margin="0,5,90,5" Fill="#33000000" MouseLeftButtonUp="ToolBar_SaveButton_OnLeftMouseUp" MouseLeftButtonDown="GenericButton_OnMouseDown" HorizontalAlignment="Right" Width="80" RadiusY="11.5" RadiusX="11.5"/>
+            <Label Content="SAVE" Margin="0,3,90,5" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" HorizontalAlignment="Right" Width="80"/>
 
-            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="97" StrokeThickness="2" Margin="90,5,0,0" MouseLeftButtonDown="GenericButton_OnMouseDown" Fill="#33FFFFFF"/>
-            <Label Content="SAVE AS" Width="97" Margin="90,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="{x:Null}"/>
+            <Rectangle HorizontalAlignment="Right" Stroke="White" Width="97" StrokeThickness="2" Margin="0,5,175,5" MouseLeftButtonDown="GenericButton_OnMouseDown" Fill="#33000000" RadiusY="11.5" RadiusX="11.5"/>
+            <Label Content="SAVE AS" Margin="0,3,175,5" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="{x:Null}" HorizontalAlignment="Right" Width="97"/>
 
-            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="102" StrokeThickness="2" Margin="192,5,0,0" Fill="#33FFFFFF" MouseLeftButtonDown="GenericButton_OnMouseDown" MouseLeftButtonUp="OptionsModalWindow_OnMouseLeftButtonUp"/>
-            <Label Content="OPTIONS" Width="102" Margin="192,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="{x:Null}"/>
+            <Rectangle HorizontalAlignment="Left" Stroke="White" Width="102" StrokeThickness="2" Margin="89,5,0,5" Fill="#33000000" MouseLeftButtonDown="GenericButton_OnMouseDown" MouseLeftButtonUp="OptionsModalWindow_OnMouseLeftButtonUp" RadiusY="11.5" RadiusX="11.5"/>
+            <Label Content="OPTIONS" Width="102" Margin="89,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="{x:Null}"/>
 
-            <Rectangle HorizontalAlignment="Right" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,5,0" Fill="#33FFFFFF" MouseLeftButtonUp="ToolBar_RunButton_OnLeftMouseUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
+            <Rectangle HorizontalAlignment="Left" Stroke="White" Width="79" StrokeThickness="2" Margin="5,5,0,5" Fill="#33000000" MouseLeftButtonDown="GenericButton_OnMouseDown" MouseLeftButtonUp="OptionsModalWindow_OnMouseLeftButtonUp" RadiusY="11.5" RadiusX="11.5"/>
+            <Label Content="LOAD" Width="79" Margin="5,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="{x:Null}"/>
+
+            <Rectangle HorizontalAlignment="Right" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,5,0" Fill="#33000000" MouseLeftButtonUp="ToolBar_RunButton_OnLeftMouseUp" MouseLeftButtonDown="GenericButton_OnMouseDown" RadiusY="11.5" RadiusX="11.5"/>
             <Label Content="RUN" Width="80" Margin="5,3,5,5" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
 
         </Grid>
         <Grid Margin="0,0,0,0" Background="{StaticResource bgBrush}" Height="136" VerticalAlignment="Bottom">
-            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,0,0" Fill="#33FFFFFF" MouseLeftButtonUp="DebugWindow_ClearButtonOnLeftMouseButtonUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
+            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,0,0" Fill="#33000000" MouseLeftButtonUp="DebugWindow_ClearButtonOnLeftMouseButtonUp" MouseLeftButtonDown="GenericButton_OnMouseDown" RadiusY="11.5" RadiusX="11.5"/>
             <Label Content="CLEAR" Width="80" Margin="5,3,0,106" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
 
-            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="140" StrokeThickness="2" Margin="90,5,0,0" Fill="#33FFFFFF" MouseLeftButtonUp="DebugWindow_ClearOnRunButtonOnLeftMouseButtonUp" MouseLeftButtonDown="GenericButton_OnMouseDown"/>
+            <Rectangle HorizontalAlignment="Left" Height="25" Stroke="White" VerticalAlignment="Top" Width="140" StrokeThickness="2" Margin="90,5,0,0" Fill="#33000000" MouseLeftButtonUp="DebugWindow_ClearOnRunButtonOnLeftMouseButtonUp" MouseLeftButtonDown="GenericButton_OnMouseDown" RadiusY="11.5" RadiusX="11.5"/>
             <Label Content="CLEAR ON RUN" Width="140" Margin="90,3,0,106" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False"/>
 
             <TextBox x:Name="debugTextBox" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Background="{StaticResource subBrush}" Foreground="White" BorderBrush="{x:Null}" Margin="0,35,0,0"/>

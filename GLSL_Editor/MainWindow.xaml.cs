@@ -225,14 +225,14 @@ namespace GLSL_Editor
 
         private void DebugWindow_ClearButtonOnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
         {
-            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
+            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 0, 0, 0));
             debugTextBox.Clear();
         }
 
         private void ToolBar_SaveButton_OnLeftMouseUp(object sender, MouseButtonEventArgs e)
         {
 
-            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
+            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 0, 0, 0));
             bool isVertexShader = true;
             foreach (TextEditorTypeAndScrollHelper helper in textBoxCollection)
             {
@@ -318,7 +318,7 @@ namespace GLSL_Editor
 
         private void GenericButton_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb(100, 255, 255, 255));
+            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
         }
 
         private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
@@ -577,7 +577,7 @@ namespace GLSL_Editor
         private void DebugWindow_ClearOnRunButtonOnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
         {
             clearDebugWindowOnRun = !clearDebugWindowOnRun;
-            ((Rectangle)sender).Fill = (clearDebugWindowOnRun) ? new SolidColorBrush(Color.FromArgb(100, 255, 255, 255)) : new SolidColorBrush(Color.FromArgb((int)(255 * 20f / 100), 255, 255, 255));
+            ((Rectangle)sender).Fill = (clearDebugWindowOnRun) ? new SolidColorBrush(Color.FromArgb(0, 0, 0, 0)) : new SolidColorBrush(Color.FromArgb((int)(255 * 20f / 100), 0, 0, 0));
         }
 
         private void OptionsModalWindow_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -586,7 +586,7 @@ namespace GLSL_Editor
             optionsGrid.Visibility = Visibility.Visible;
             saveAndIdeErrorGrid.Visibility = Visibility.Hidden;
             addShaderSetGrid.Visibility = Visibility.Hidden;
-            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
+            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 0, 0, 0));
         }
 
         private void Colour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -612,7 +612,7 @@ namespace GLSL_Editor
             if (clearDebugWindowOnRun)
                 debugTextBox.Clear();
 
-            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 255, 255, 255));
+            ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 0, 0, 0));
             if (vertexShaderSaveLocation != string.Empty && fragmentShaderSaveLocation != string.Empty)
             {
                 process = new Process();
