@@ -43,6 +43,17 @@ namespace GLSL_Editor
 
         bool clearDebugWindowOnRun;
 
+        struct ErrorData
+        {
+            public TextEditorTypeAndScrollHelper.ShaderType shaderType;
+            public int lineNumber;
+            public ErrorData(TextEditorTypeAndScrollHelper.ShaderType shaderType, int lineNumber)
+            {
+                this.shaderType = shaderType;
+                this.lineNumber = lineNumber;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -614,17 +625,54 @@ namespace GLSL_Editor
                 string fragmentLocation = "\"" + fragmentShaderSaveLocation + "\"";
                 process.StartInfo.Arguments = vertexShaderSaveLocation + " " + fragmentShaderSaveLocation;
                 process.Start();
-                string completeLog = "";
+                StringBuilder completeLog = new StringBuilder();
                 while (!process.StandardOutput.EndOfStream)
                 {
                     string line = process.StandardOutput.ReadLine();
-                    completeLog += line + Environment.NewLine;
+                    completeLog.Append(line + Environment.NewLine);
                 }
                 completeLog = completeLog.Replace(Environment.NewLine + Environment.NewLine, " ");
-                debugTextBox.Text = completeLog;
+                debugTextBox.Text = completeLog.ToString();
+                ErrorData[] errors = ProcessConsoleString(completeLog.ToString()).ToArray();
+                foreach (ErrorData edata in errors)
+                    Console.WriteLine("Error type = " + edata.shaderType.ToString() + ", line num : " + edata.lineNumber);
             }
             else
                 SavedFileModalWindow("Cannot Run Shaders", "Save all shaders in shader set to file, Then Run", "OK");
+        }
+        private List<ErrorData> ProcessConsoleString(string data)
+        {
+            List<ErrorData> errors = new List<ErrorData>();
+            string checkVertex = "VERTEX shader compilation error :";
+            string checkFarg = "FRAGMENT shader compilation error :";
+            string checkProg = "PROGRAM linking error of type : PROGRAM";
+            if (data.Contains(checkProg))
+            {
+                Regex errorRegex = new Regex(@"(ERROR:\s\d:\d)");
+                if (data.Contains(checkVertex))
+                {
+                    int indexOfvert = data.IndexOf(checkVertex);
+                    int indexOfFrag = data.IndexOf(checkFarg);
+                    string vertexErrorString = data.Substring(indexOfvert + checkVertex.Length, indexOfFrag - (indexOfvert + checkVertex.Length));
+                    foreach (Match match in errorRegex.Matches(vertexErrorString))
+                    {
+                        string numValue = match.Value.Substring(match.Value.LastIndexOf(':') + 1);
+                        errors.Add(new ErrorData(TextEditorTypeAndScrollHelper.ShaderType.VERTEX, Int32.Parse(numValue)));
+                    }
+                }
+                if (data.Contains(checkFarg))
+                {
+                    int indexOfvert = data.IndexOf(checkVertex);
+                    int indexOfFrag = data.IndexOf(checkFarg);
+                    string vertexErrorString = data.Substring(indexOfvert + checkVertex.Length, indexOfFrag - (indexOfvert + checkVertex.Length));
+                    foreach (Match match in errorRegex.Matches(vertexErrorString))
+                    {
+                        string numValue = match.Value.Substring(match.Value.LastIndexOf(':') + 1);
+                        errors.Add(new ErrorData(TextEditorTypeAndScrollHelper.ShaderType.VERTEX, Int32.Parse(numValue)));
+                    }
+                }
+            }
+            return errors;
         }
     }
 }
