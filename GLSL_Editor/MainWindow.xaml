@@ -23,7 +23,7 @@
             <Rectangle HorizontalAlignment="Left" Stroke="White" Width="102" StrokeThickness="2" Margin="89,5,0,5" Fill="#33000000" MouseLeftButtonDown="GenericButton_OnMouseDown" MouseLeftButtonUp="OptionsModalWindow_OnMouseLeftButtonUp" RadiusY="11.5" RadiusX="11.5"/>
             <Label Content="OPTIONS" Width="102" Margin="89,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="{x:Null}"/>
 
-            <Rectangle HorizontalAlignment="Left" Stroke="White" Width="79" StrokeThickness="2" Margin="5,5,0,5" Fill="#33000000" MouseLeftButtonDown="GenericButton_OnMouseDown" MouseLeftButtonUp="OptionsModalWindow_OnMouseLeftButtonUp" RadiusY="11.5" RadiusX="11.5"/>
+            <Rectangle HorizontalAlignment="Left" Stroke="White" Width="79" StrokeThickness="2" Margin="5,5,0,5" Fill="#33000000" MouseLeftButtonDown="GenericButton_OnMouseDown" MouseLeftButtonUp="LoadButton_OnMouseLeftButtonUp" RadiusY="11.5" RadiusX="11.5"/>
             <Label Content="LOAD" Width="79" Margin="5,3,0,5" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Top" FontSize="14" IsHitTestVisible="False" Background="{x:Null}"/>
 
             <Rectangle HorizontalAlignment="Right" Height="25" Stroke="White" VerticalAlignment="Top" Width="80" StrokeThickness="2" Margin="5,5,5,0" Fill="#33000000" MouseLeftButtonUp="ToolBar_RunButton_OnLeftMouseUp" MouseLeftButtonDown="GenericButton_OnMouseDown" RadiusY="11.5" RadiusX="11.5"/>

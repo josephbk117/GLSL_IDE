@@ -76,6 +76,7 @@ namespace GLSL_Editor
             };
 
             currentOpenTabItem = vertexShaderTabItem;
+            currentTextBox = glslVertexTextbox;
             clearDebugWindowOnRun = false;
         }
         private void TextBox_keyUp(object sender, KeyEventArgs e)
@@ -587,6 +588,26 @@ namespace GLSL_Editor
             saveAndIdeErrorGrid.Visibility = Visibility.Hidden;
             addShaderSetGrid.Visibility = Visibility.Hidden;
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 0, 0, 0));
+        }
+
+        private void LoadButton_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog();
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string line;
+                currentTextBox.Document.Blocks.Clear();
+                StreamReader file = new StreamReader(ofd.FileName);
+                while ((line = file.ReadLine()) != null)
+                {
+                    Paragraph para = new Paragraph(new Run(line) { Foreground = baseTextColour })
+                    {
+                        Background = mainBrush
+                    };
+                    currentTextBox.Document.Blocks.Add(para);
+                }
+                file.Close();
+            }
         }
 
         private void Colour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
