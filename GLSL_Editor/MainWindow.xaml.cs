@@ -551,6 +551,7 @@ namespace GLSL_Editor
         private void TabItem_OnGotFocus(object sender, RoutedEventArgs e)
         {
             currentOpenTabItem = sender as TabItem;
+            currentTextBox = ((ScrollViewer)(((Grid)currentOpenTabItem.Content).Children[1])).Content as RichTextBox;
         }
 
         private void AutoCompleteListBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -609,7 +610,7 @@ namespace GLSL_Editor
                 file.Close();
             }
         }
-
+        
         private void Colour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (mainBrush != null)
