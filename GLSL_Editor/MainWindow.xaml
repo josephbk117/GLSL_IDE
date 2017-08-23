@@ -119,7 +119,7 @@
             <ListBox x:Name="choiceList" Width="250" Height="100" Visibility="Hidden" Background="#4C000000" Foreground="White" BorderBrush="White" MouseDoubleClick="AutoCompleteListBox_OnMouseDoubleClick"/>
         </Canvas>
         <TabControl Name="shaderSetTabControl" Margin="0,35,0,136" TabStripPlacement="Left" BorderBrush="White" BorderThickness="0">
-            <TabItem Header="Shader set 1" BorderBrush="{x:Null}" Margin="-2,-3,1,-5" Foreground="{StaticResource tertBrush}">
+            <TabItem Header="Shader set 1" BorderBrush="{x:Null}" Margin="-2,-3,1,-5" Foreground="{StaticResource tertBrush}" Background="{StaticResource bgBrush}">
                 <Grid Background="{StaticResource subBrush}">
                     <TabControl BorderThickness="0" x:Name="tabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
                         <TabItem Name="vertexShaderTabItem" Header="Vertex Shader" Background="{StaticResource bgBrush}" BorderBrush="{x:Null}" Foreground="{StaticResource tertBrush}" Margin="35,0,-40,0" GotFocus="TabItem_OnGotFocus">
@@ -183,7 +183,7 @@
                     </TabControl>
                 </Grid>
             </TabItem >
-            <TabItem Name="addShaderSetTabIncItem" Header="Add Shader Set" BorderBrush="{x:Null}" Margin="-2,0,1,-5" Foreground="{StaticResource tertBrush}" Height="27" VerticalAlignment="Bottom">
+            <TabItem Name="addShaderSetTabIncItem" Header="Add Shader Set" BorderBrush="{x:Null}" Margin="-2,0,1,-5" Foreground="{StaticResource tertBrush}" Height="27" VerticalAlignment="Bottom" Background="{StaticResource bgBrush}">
                 <Grid Margin="0,0,0,0" Background="{StaticResource bgBrush}">
                     <Rectangle Width="280" Height="60" Fill="#50000000" MouseLeftButtonUp="ShaderSetAdd_OnMouseLeftUp"/>
                     <Label Content="Add Shader Set" Margin="159,115" FontSize="24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" IsHitTestVisible="False"/>

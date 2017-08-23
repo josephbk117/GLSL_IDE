@@ -390,7 +390,9 @@ namespace GLSL_Editor
                 Margin = new Thickness(-2, 0, 1, -5),
                 Foreground = tertBrush,
                 Height = 27,
-                VerticalAlignment = VerticalAlignment.Bottom
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Background = mainBrush,
+                BorderBrush = tertBrush
             };
 
             Grid grid = new Grid()
