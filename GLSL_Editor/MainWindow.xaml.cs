@@ -646,9 +646,9 @@ namespace GLSL_Editor
             {
                 Console.WriteLine("Tab item header : " + item.Header.ToString());
             }
-            string vertexShaderSaveLocation = ((TabItem)iCol[0]).Header.ToString();
-            string fragmentShaderSaveLocation = ((TabItem)iCol[1]).Header.ToString();
-            if (vertexShaderSaveLocation != string.Empty && fragmentShaderSaveLocation != string.Empty)
+            string CvertexShaderSaveLocation = ((TabItem)iCol[0]).Header.ToString();
+            string CfragmentShaderSaveLocation = ((TabItem)iCol[1]).Header.ToString();
+            if (CvertexShaderSaveLocation != string.Empty && CfragmentShaderSaveLocation != string.Empty && CvertexShaderSaveLocation != "Vertex Shader" && CfragmentShaderSaveLocation != "Fragment Shader")
             {
                 process = new Process();
                 process.StartInfo.FileName = @"ShaderTool.exe";
