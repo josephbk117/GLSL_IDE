@@ -611,6 +611,7 @@ namespace GLSL_Editor
                 }
                 file.Close();
             }
+            SetUpLineAndFormat(currentTextBox);
         }
         
         private void Colour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
