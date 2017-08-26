@@ -642,10 +642,7 @@ namespace GLSL_Editor
             Grid selectedShaderSetGrid = ((Grid)shaderSetTabControl.SelectedContent);
             TabControl conTabCntl = (TabControl)selectedShaderSetGrid.Children[0];
             ItemCollection iCol = conTabCntl.Items;
-            foreach (TabItem item in iCol)
-            {
-                Console.WriteLine("Tab item header : " + item.Header.ToString());
-            }
+            
             string CvertexShaderSaveLocation = ((TabItem)iCol[0]).Header.ToString();
             string CfragmentShaderSaveLocation = ((TabItem)iCol[1]).Header.ToString();
             if (CvertexShaderSaveLocation != string.Empty && CfragmentShaderSaveLocation != string.Empty && CvertexShaderSaveLocation != "Vertex Shader" && CfragmentShaderSaveLocation != "Fragment Shader")
