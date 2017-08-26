@@ -613,7 +613,7 @@ namespace GLSL_Editor
             }
             SetUpLineAndFormat(currentTextBox);
         }
-        
+
         private void Colour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (mainBrush != null)
@@ -638,6 +638,16 @@ namespace GLSL_Editor
                 debugTextBox.Clear();
 
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 0, 0, 0));
+            
+            Grid selectedShaderSetGrid = ((Grid)shaderSetTabControl.SelectedContent);
+            TabControl conTabCntl = (TabControl)selectedShaderSetGrid.Children[0];
+            ItemCollection iCol = conTabCntl.Items;
+            foreach (TabItem item in iCol)
+            {
+                Console.WriteLine("Tab item header : " + item.Header.ToString());
+            }
+            string vertexShaderSaveLocation = ((TabItem)iCol[0]).Header.ToString();
+            string fragmentShaderSaveLocation = ((TabItem)iCol[1]).Header.ToString();
             if (vertexShaderSaveLocation != string.Empty && fragmentShaderSaveLocation != string.Empty)
             {
                 process = new Process();
