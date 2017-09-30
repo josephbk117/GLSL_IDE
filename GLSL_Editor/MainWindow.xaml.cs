@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -22,7 +21,7 @@ namespace GLSL_Editor
         Process process;
 
         Regex typesRegex = new Regex(@"(vec1|vec2|vec3|vec4|mat2|mat3|mat4|float|int|uint|double|bool|void|sampler1D|sampler2D|sampler3D|struct)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        Regex miscRegex = new Regex(@"(in\s|out\s|inout\s|uniform\s|const\s|\sfalse|\strue)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        Regex miscRegex = new Regex(@"(in\s|out\s|inout\s|attribute\s|varying\s|uniform\s|const\s|\sfalse|\strue)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         Regex commentRegex = new Regex(@"(\/\/.*)|(\/\*[\s\S]*\/)|(\/\/.*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         Regex vertexShaderSpecial = new Regex(@"gl_Position\s|gl_PointSize\s|gl_VertexID\s|gl_InstanceID\s", RegexOptions.Compiled);
         Regex fragmentShaderSpecial = new Regex(@"gl_FragCoord\s|gl_FrontFacing\s|gl_FragDepth\s", RegexOptions.Compiled);
@@ -36,7 +35,7 @@ namespace GLSL_Editor
         TabItem currentOpenTabItem;
         RichTextBox currentTextBox;
 
-        readonly string[] glslKeywords = new string[] { "in", "out", "inout", "vec1", "vec2", "vec3", "vec4", "mat2", "mat3", "mat4", "float", "int", "uint",
+        readonly string[] glslKeywords = new string[] { "in", "out", "inout","attribute","varying", "vec1", "vec2", "vec3", "vec4", "mat2", "mat3", "mat4", "float", "int", "uint",
             "void", "double", "bool", "sampler1D", "sampler2D", "sampler3D", "struct", "uniform", "const",
             "true", "false", "gl_Position", "gl_PointSize", "gl_VertexID", "gl_InstanceID",
             "gl_FragCoord", "gl_FrontFacing", "gl_FragDepth" };
@@ -141,13 +140,13 @@ namespace GLSL_Editor
             RichTextBox lineNumberTextBox = new RichTextBox();
             FlowDocument flowDoc = new FlowDocument();
             TextEditorTypeAndScrollHelper helper = new TextEditorTypeAndScrollHelper();
-            foreach (TextEditorTypeAndScrollHelper txtEdiHelp in textBoxCollection)
+            foreach (TextEditorTypeAndScrollHelper txtEditHelp in textBoxCollection)
             {
-                if (txtEdiHelp.GetShaderTextBox() == currentTextBox)
+                if (txtEditHelp.GetShaderTextBox() == currentTextBox)
                 {
-                    lineNumberTextBox = txtEdiHelp.GetCorrespondingLineTextBox();
+                    lineNumberTextBox = txtEditHelp.GetCorrespondingLineTextBox();
                     flowDoc = lineNumberTextBox.Document;
-                    helper = txtEdiHelp;
+                    helper = txtEditHelp;
                     break;
                 }
             }
@@ -638,11 +637,11 @@ namespace GLSL_Editor
                 debugTextBox.Clear();
 
             ((Rectangle)sender).Fill = new SolidColorBrush(Color.FromArgb((int)((20f / 100f) * 255), 0, 0, 0));
-            
+
             Grid selectedShaderSetGrid = ((Grid)shaderSetTabControl.SelectedContent);
             TabControl conTabCntl = (TabControl)selectedShaderSetGrid.Children[0];
             ItemCollection iCol = conTabCntl.Items;
-            
+
             string CvertexShaderSaveLocation = ((TabItem)iCol[0]).Header.ToString();
             string CfragmentShaderSaveLocation = ((TabItem)iCol[1]).Header.ToString();
             if (CvertexShaderSaveLocation != string.Empty && CfragmentShaderSaveLocation != string.Empty && CvertexShaderSaveLocation != "Vertex Shader" && CfragmentShaderSaveLocation != "Fragment Shader")
@@ -676,7 +675,7 @@ namespace GLSL_Editor
         {
             List<ErrorData> errors = new List<ErrorData>();
             string checkVertex = "VERTEX shader compilation error :";
-            string checkFarg = "FRAGMENT shader compilation error :";
+            string checkFrag = "FRAGMENT shader compilation error :";
             string checkProg = "PROGRAM linking error of type : PROGRAM";
             if (data.Contains(checkProg))
             {
@@ -684,7 +683,7 @@ namespace GLSL_Editor
                 if (data.Contains(checkVertex))
                 {
                     int indexOfvert = data.IndexOf(checkVertex);
-                    int indexOfFrag = data.IndexOf(checkFarg);
+                    int indexOfFrag = data.IndexOf("FRAGMENT shader compilation");
                     string vertexErrorString = data.Substring(indexOfvert + checkVertex.Length, indexOfFrag - (indexOfvert + checkVertex.Length));
                     foreach (Match match in errorRegex.Matches(vertexErrorString))
                     {
@@ -692,15 +691,15 @@ namespace GLSL_Editor
                         errors.Add(new ErrorData(TextEditorTypeAndScrollHelper.ShaderType.VERTEX, Int32.Parse(numValue)));
                     }
                 }
-                if (data.Contains(checkFarg))
+                if (data.Contains(checkFrag))
                 {
-                    int indexOfvert = data.IndexOf(checkVertex);
-                    int indexOfFrag = data.IndexOf(checkFarg);
-                    string vertexErrorString = data.Substring(indexOfvert + checkVertex.Length, indexOfFrag - (indexOfvert + checkVertex.Length));
-                    foreach (Match match in errorRegex.Matches(vertexErrorString))
+                    int indexOfFrag = data.IndexOf(checkFrag);
+                    int indexOfProg = data.IndexOf(checkProg);
+                    string fragmentErrorString = data.Substring(indexOfFrag + checkFrag.Length, indexOfProg - (indexOfFrag + checkFrag.Length));
+                    foreach (Match match in errorRegex.Matches(fragmentErrorString))
                     {
                         string numValue = match.Value.Substring(match.Value.LastIndexOf(':') + 1);
-                        errors.Add(new ErrorData(TextEditorTypeAndScrollHelper.ShaderType.VERTEX, Int32.Parse(numValue)));
+                        errors.Add(new ErrorData(TextEditorTypeAndScrollHelper.ShaderType.FRAGMENT, Int32.Parse(numValue)));
                     }
                 }
             }
