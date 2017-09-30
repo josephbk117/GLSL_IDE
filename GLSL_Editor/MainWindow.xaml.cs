@@ -35,7 +35,7 @@ namespace GLSL_Editor
         TabItem currentOpenTabItem;
         RichTextBox currentTextBox;
 
-        readonly string[] glslKeywords = new string[] { "in", "out", "inout","attribute","varying", "vec1", "vec2", "vec3", "vec4", "mat2", "mat3", "mat4", "float", "int", "uint",
+        readonly string[] glslKeywords = new string[] { "in", "out", "inout", "attribute", "varying", "vec1", "vec2", "vec3", "vec4", "mat2", "mat3", "mat4", "float", "int", "uint",
             "void", "double", "bool", "sampler1D", "sampler2D", "sampler3D", "struct", "uniform", "const",
             "true", "false", "gl_Position", "gl_PointSize", "gl_VertexID", "gl_InstanceID",
             "gl_FragCoord", "gl_FrontFacing", "gl_FragDepth" };
@@ -89,9 +89,7 @@ namespace GLSL_Editor
             if (e.Key != Key.Space || e.Key != Key.LeftShift)
                 SetUpAutoCompletionListBox(currentTextBox);
             else
-            {
                 choiceList.Visibility = Visibility.Hidden;
-            }
         }
 
         private void SetUpAutoCompletionListBox(RichTextBox currentTextBox)
@@ -237,9 +235,7 @@ namespace GLSL_Editor
             foreach (TextEditorTypeAndScrollHelper helper in textBoxCollection)
             {
                 if (helper.GetShaderTextBox() == currentTextBox)
-                {
                     isVertexShader = (helper.GetShaderType() == TextEditorTypeAndScrollHelper.ShaderType.VERTEX) ? true : false;
-                }
             }
 
             if (isVertexShader)
@@ -642,9 +638,27 @@ namespace GLSL_Editor
             TabControl conTabCntl = (TabControl)selectedShaderSetGrid.Children[0];
             ItemCollection iCol = conTabCntl.Items;
 
-            string CvertexShaderSaveLocation = ((TabItem)iCol[0]).Header.ToString();
-            string CfragmentShaderSaveLocation = ((TabItem)iCol[1]).Header.ToString();
-            if (CvertexShaderSaveLocation != string.Empty && CfragmentShaderSaveLocation != string.Empty && CvertexShaderSaveLocation != "Vertex Shader" && CfragmentShaderSaveLocation != "Fragment Shader")
+            TabItem vertexShaderTabItem = ((TabItem)iCol[0]);
+            TabItem fragmentShaderTabItem = ((TabItem)iCol[1]);
+
+            RichTextBox vertexLineNumberBox = ((RichTextBox)((Grid)vertexShaderTabItem.Content).Children[0]);
+            RichTextBox fragmentLineNumberBox = ((RichTextBox)((Grid)fragmentShaderTabItem.Content).Children[0]);
+
+            Console.WriteLine("line count :" + vertexLineNumberBox.Document.Blocks.Count);
+
+            /*BlockCollection collection = vertexLineNumberBox.Document.Blocks;
+            int k = 0;
+            foreach (Block b in collection)
+            {
+                k++;
+                if (k == 5)
+                    b.Background = Brushes.Coral;
+            }*/
+
+            string CvertexShaderSaveLocation = vertexShaderTabItem.Header.ToString();
+            string CfragmentShaderSaveLocation = fragmentShaderTabItem.Header.ToString();
+            if (CvertexShaderSaveLocation != string.Empty && CfragmentShaderSaveLocation != string.Empty &&
+                CvertexShaderSaveLocation != "Vertex Shader" && CfragmentShaderSaveLocation != "Fragment Shader")
             {
                 process = new Process();
                 process.StartInfo.FileName = @"ShaderTool.exe";
@@ -665,8 +679,37 @@ namespace GLSL_Editor
                 completeLog = completeLog.Replace(Environment.NewLine + Environment.NewLine, " ");
                 debugTextBox.Text = completeLog.ToString();
                 ErrorData[] errors = ProcessConsoleString(completeLog.ToString()).ToArray();
+                List<int> vertexErrorLine = new List<int>();
+                List<int> fragmentErrorLine = new List<int>();
                 foreach (ErrorData edata in errors)
-                    Console.WriteLine("Error type = " + edata.shaderType.ToString() + ", line num : " + edata.lineNumber);
+                {
+                    if (edata.shaderType == TextEditorTypeAndScrollHelper.ShaderType.VERTEX)
+                        vertexErrorLine.Add(edata.lineNumber);
+                    if (edata.shaderType == TextEditorTypeAndScrollHelper.ShaderType.FRAGMENT)
+                        fragmentErrorLine.Add(edata.lineNumber);
+                }
+                if (vertexErrorLine.Count > 0)
+                {
+                    BlockCollection collection = vertexLineNumberBox.Document.Blocks;
+                    int k = 0;
+                    foreach (Block b in collection)
+                    {
+                        k++;
+                        if (vertexErrorLine.Contains(k))
+                            b.Background = Brushes.Coral;
+                    }
+                }
+                if (fragmentErrorLine.Count > 0)
+                {
+                    BlockCollection collection = fragmentLineNumberBox.Document.Blocks;
+                    int k = 0;
+                    foreach (Block b in collection)
+                    {
+                        k++;
+                        if (fragmentErrorLine.Contains(k))
+                            b.Background = Brushes.Coral;
+                    }
+                }
             }
             else
                 SavedFileModalWindow("Cannot Run Shaders", "Save all shaders in shader set to file, Then Run", "OK");
@@ -679,7 +722,7 @@ namespace GLSL_Editor
             string checkProg = "PROGRAM linking error of type : PROGRAM";
             if (data.Contains(checkProg))
             {
-                Regex errorRegex = new Regex(@"(ERROR:\s\d:\d)");
+                Regex errorRegex = new Regex(@"(ERROR:\s\d:\d*)");
                 if (data.Contains(checkVertex))
                 {
                     int indexOfvert = data.IndexOf(checkVertex);
