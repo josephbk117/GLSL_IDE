@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GLSL_Editor"
         mc:Ignorable="d"
-        Title="GLSL Editor" Height="496" Width="706" MinWidth="700" MinHeight="490">
+        Title="GLSL Editor" Height="496" Width="706" MinWidth="700" MinHeight="490" LayoutUpdated="Window_LayoutUpdated">
     <Window.Resources>
         <SolidColorBrush Color="#FF3B2147" x:Key="bgBrush"/>
         <SolidColorBrush Color="#FF624D6C" x:Key="subBrush"/>

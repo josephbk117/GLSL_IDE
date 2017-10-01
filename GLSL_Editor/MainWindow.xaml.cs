@@ -630,6 +630,18 @@ namespace GLSL_Editor
                 mainBrush.Color = Color.FromRgb((byte)bgColour_R.Value, (byte)bgColour_G.Value, (byte)bgColour_B.Value);
         }
 
+        private void Window_LayoutUpdated(object sender, EventArgs e)
+        {
+            if (lineNumberLinks != null)
+            {
+                if (lineNumberLinks.Count > 0)
+                {
+                    foreach (LineNumberErrorLink link in lineNumberLinks)
+                        SetUpLineErrorDisplay(link.lineTextBox, link.lineNumbers);
+                }
+            }
+        }
+
         private void SubColour_SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (subBrush != null)
