@@ -15,6 +15,29 @@ namespace GLSL_Editor
 {
     public partial class MainWindow : Window
     {
+        struct ErrorData
+        {
+            public TextEditorTypeAndScrollHelper.ShaderType shaderType;
+            public int lineNumber;
+            public ErrorData(TextEditorTypeAndScrollHelper.ShaderType shaderType, int lineNumber)
+            {
+                this.shaderType = shaderType;
+                this.lineNumber = lineNumber;
+            }
+        }
+
+        struct LineNumberErrorLink
+        {
+            public RichTextBox lineTextBox;
+            public List<int> lineNumbers;
+
+            public LineNumberErrorLink(RichTextBox textBox, List<int> lines)
+            {
+                lineTextBox = textBox;
+                lineNumbers = lines;
+            }
+        }
+
         string vertexShaderSaveLocation, fragmentShaderSaveLocation;
         string defaultVertexSaveType = "(.vs)|*.vs";
         string defaultFragmentSaveType = "(.fs)|*.fs";
@@ -42,16 +65,7 @@ namespace GLSL_Editor
 
         bool clearDebugWindowOnRun;
 
-        struct ErrorData
-        {
-            public TextEditorTypeAndScrollHelper.ShaderType shaderType;
-            public int lineNumber;
-            public ErrorData(TextEditorTypeAndScrollHelper.ShaderType shaderType, int lineNumber)
-            {
-                this.shaderType = shaderType;
-                this.lineNumber = lineNumber;
-            }
-        }
+        List<LineNumberErrorLink> lineNumberLinks;
 
         public MainWindow()
         {
@@ -77,6 +91,7 @@ namespace GLSL_Editor
             currentOpenTabItem = vertexShaderTabItem;
             currentTextBox = glslVertexTextbox;
             clearDebugWindowOnRun = false;
+            lineNumberLinks = new List<LineNumberErrorLink>();
         }
         private void TextBox_keyUp(object sender, KeyEventArgs e)
         {
@@ -644,17 +659,6 @@ namespace GLSL_Editor
             RichTextBox vertexLineNumberBox = ((RichTextBox)((Grid)vertexShaderTabItem.Content).Children[0]);
             RichTextBox fragmentLineNumberBox = ((RichTextBox)((Grid)fragmentShaderTabItem.Content).Children[0]);
 
-            Console.WriteLine("line count :" + vertexLineNumberBox.Document.Blocks.Count);
-
-            /*BlockCollection collection = vertexLineNumberBox.Document.Blocks;
-            int k = 0;
-            foreach (Block b in collection)
-            {
-                k++;
-                if (k == 5)
-                    b.Background = Brushes.Coral;
-            }*/
-
             string CvertexShaderSaveLocation = vertexShaderTabItem.Header.ToString();
             string CfragmentShaderSaveLocation = fragmentShaderTabItem.Header.ToString();
             if (CvertexShaderSaveLocation != string.Empty && CfragmentShaderSaveLocation != string.Empty &&
@@ -690,30 +694,31 @@ namespace GLSL_Editor
                 }
                 if (vertexErrorLine.Count > 0)
                 {
-                    BlockCollection collection = vertexLineNumberBox.Document.Blocks;
-                    int k = 0;
-                    foreach (Block b in collection)
-                    {
-                        k++;
-                        if (vertexErrorLine.Contains(k))
-                            b.Background = Brushes.Coral;
-                    }
+                    lineNumberLinks.Add(new LineNumberErrorLink(vertexLineNumberBox, vertexErrorLine));
+                    SetUpLineErrorDisplay(vertexLineNumberBox, vertexErrorLine);
                 }
                 if (fragmentErrorLine.Count > 0)
                 {
-                    BlockCollection collection = fragmentLineNumberBox.Document.Blocks;
-                    int k = 0;
-                    foreach (Block b in collection)
-                    {
-                        k++;
-                        if (fragmentErrorLine.Contains(k))
-                            b.Background = Brushes.Coral;
-                    }
+                    lineNumberLinks.Add(new LineNumberErrorLink(fragmentLineNumberBox, fragmentErrorLine));
+                    SetUpLineErrorDisplay(fragmentLineNumberBox, fragmentErrorLine);
                 }
             }
             else
                 SavedFileModalWindow("Cannot Run Shaders", "Save all shaders in shader set to file, Then Run", "OK");
         }
+
+        private static void SetUpLineErrorDisplay(RichTextBox lineNumberBox, List<int> vertexErrorLine)
+        {
+            BlockCollection collection = lineNumberBox.Document.Blocks;
+            int k = 0;
+            foreach (Block b in collection)
+            {
+                k++;
+                if (vertexErrorLine.Contains(k))
+                    b.Background = Brushes.Coral;
+            }
+        }
+
         private List<ErrorData> ProcessConsoleString(string data)
         {
             List<ErrorData> errors = new List<ErrorData>();
